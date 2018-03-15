@@ -1,12 +1,17 @@
 #include "punto.h"
+#include <QDataStream>
 
 Punto::Punto(qreal x,qreal y):QPointF(x,y){}
+
+QString Punto::getTag()const{
+    return tag;
+}
 
 void Punto::setTag(QString s){
     tag=s;
 }
 
-std::ostream& Punto::operator<<(std::ostream& os,const Punto& p){
-    os<<p.tag<<'('<<p.x()<<','<<p.y()<<')';
-    return os;
+QDataStream& operator<<(QDataStream& stream,const Punto& p){
+    stream<<p.tag<<'('<<p.x()<<','<<p.y()<<')';
+    return stream;
 }

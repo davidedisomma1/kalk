@@ -12,7 +12,7 @@ class Punto: public QPointF{
 private:
     QString tag;
 public:
-    friend std::ostream& operator<<(std::ostream&, const Punto&);
+    friend QDataStream& operator<<(QDataStream&, const Punto&);
 
     Punto(qreal=0,qreal=0);
     Punto(const Punto&)=default;
@@ -34,4 +34,3 @@ public:
 
 
 #endif // PUNTO
-
