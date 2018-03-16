@@ -4,7 +4,7 @@
 #include <QPointF>
 #include <QLineF>
 #include <QString>
-#include <iostream>
+
 
 class Linea: public QLineF{};
 
@@ -12,7 +12,7 @@ class Punto: public QPointF{
 private:
     QString tag;
 public:
-    friend QDataStream& operator<<(QDataStream&, const Punto&);
+
 
     Punto(qreal=0,qreal=0);
     Punto(const Punto&)=default;

@@ -12,6 +12,6 @@ void Punto::setTag(QString s){
 }
 
 QDataStream& operator<<(QDataStream& stream,const Punto& p){
-    stream<<p.tag<<'('<<p.x()<<','<<p.y()<<')';
+    stream<<p.getTag()<<'('<<p.x()<<','<<p.y()<<')';
     return stream;
 }
