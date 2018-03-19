@@ -4,7 +4,7 @@
 #include <QPointF>
 #include <QLineF>
 #include <QString>
-
+#include <iostream>
 
 class Linea: public QLineF{};
 
@@ -13,8 +13,7 @@ private:
     QString tag;
 public:
 
-
-    Punto(qreal=0,qreal=0);
+    Punto(QString="A",qreal=0,qreal=0);
     Punto(const Punto&)=default;
 
     Linea* operator+(const Punto&) const;
@@ -31,6 +30,6 @@ public:
     void setTag(QString);
     QString getTag()const;
 };
-
+std::ostream& operator<<(std::ostream& stream,const Punto& p);
 
 #endif // PUNTO
