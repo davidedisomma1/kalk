@@ -5,6 +5,7 @@
 #include <QLineF>
 #include <QString>
 #include <iostream>
+#include <QtCore/qmath.h>
 
 class Linea: public QLineF{};
 
