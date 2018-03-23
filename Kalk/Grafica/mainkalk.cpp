@@ -1,5 +1,5 @@
 #include "mainkalk.h"
-
+#include "inputpanelkalk.h"
 MainKalk::MainKalk(QWidget *parent) : QWidget(parent){
         QWidget* window=new QMainWindow;
         window->resize(320, 240);
@@ -10,8 +10,12 @@ MainKalk::MainKalk(QWidget *parent) : QWidget(parent){
 }
 
 void MainKalk::crea(){
-    Punto hey;
-    QString testo=hey.Punto::getTag();
-    QLabel* verifica=new QLabel(testo,this);
+    inputPanelKalk *prova=new inputPanelKalk("Crea Punto",this);
+    if(prova->exec()==QDialog::Accepted){
+        std::cout<<"Hola";
+        Punto *nuovoPunto=new Punto(prova->getInputTag(),prova->getInputX(),prova->getInputY());
+        std::cout<<*nuovoPunto;
+    }
+
 
 }

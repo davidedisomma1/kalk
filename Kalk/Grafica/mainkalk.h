@@ -8,6 +8,7 @@
 #include <QPushButton>
 #include <QApplication>
 #include <QLabel>
+#include <QInputDialog>
 
 class MainKalk : public QWidget
 {
@@ -15,10 +16,11 @@ class MainKalk : public QWidget
 public:
     explicit MainKalk(QWidget *parent = 0);
 
-signals:
-
 public slots:
     void crea();
+
+signals:
+    void creato(Punto a);
 };
 
 #endif // MAINKALK_H
