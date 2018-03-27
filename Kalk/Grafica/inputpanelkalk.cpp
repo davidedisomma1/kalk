@@ -1,5 +1,5 @@
 #include "inputpanelkalk.h"
-#include <QFormLayout>
+
 
 inputPanelKalk::inputPanelKalk(const QString& titolo, QWidget* parent): QDialog(parent){
     tagLabel=new QLabel("Tag");

@@ -1,14 +1,17 @@
 #ifndef MAINKALK_H
 #define MAINKALK_H
 
+#include "../Logica/punto.h"
+#include "listmodel.h"
 #include <QWidget>
 #include <QString>
-#include "../Logica/punto.h"
 #include <QMainWindow>
 #include <QPushButton>
 #include <QApplication>
 #include <QLabel>
 #include <QInputDialog>
+#include <QListWidget>
+#include <QGridLayout>
 
 class MainKalk : public QWidget
 {

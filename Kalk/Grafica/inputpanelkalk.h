@@ -7,6 +7,7 @@
 #include <QDoubleSpinBox>
 #include <QDialogButtonBox>
 #include <QDialog>
+#include <QFormLayout>
 
 class inputPanelKalk: public QDialog{
     Q_OBJECT
