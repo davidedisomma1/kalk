@@ -6,6 +6,7 @@
 #include <QString>
 #include <iostream>
 #include <QtCore/qmath.h>
+#include <QMetaType>
 
 class Linea: public QLineF{};
 
@@ -32,5 +33,5 @@ public:
     QString getTag()const;
 };
 std::ostream& operator<<(std::ostream& stream,const Punto& p);
-
+    Q_DECLARE_METATYPE(Punto);
 #endif // PUNTO
