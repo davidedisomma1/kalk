@@ -12,12 +12,6 @@ int main(int argc, char *argv[])
 {
 
 
-    Punto punto("ciao",2,2),vuoto;
-    cout<<punto<<endl;
-    punto.setTag("hello");
-    cout<<punto<<endl;
-    qreal ipotenusa=punto.distanzaO();
-    cout<<ipotenusa<<endl;
 
     QApplication app(argc, argv);
     MainKalk m;
