@@ -6,7 +6,7 @@
 #include <QList>
 
 class listModel : public QAbstractListModel{
-
+    Q_OBJECT
 public:
     listModel(QObject *parent = 0);
 
