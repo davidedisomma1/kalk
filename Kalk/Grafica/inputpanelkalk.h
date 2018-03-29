@@ -8,6 +8,7 @@
 #include <QDialogButtonBox>
 #include <QDialog>
 #include <QFormLayout>
+#include "../Logica/punto.h"
 
 class inputPanelKalk: public QDialog{
     Q_OBJECT
@@ -16,6 +17,9 @@ public:
 
 public slots:
     void verify();
+
+signals:
+    void creato(const Punto*);
 
 public:
     QString getInputTag();

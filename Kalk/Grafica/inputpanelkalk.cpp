@@ -32,5 +32,5 @@ qreal inputPanelKalk::getInputY(){return inputY->value();}
 void inputPanelKalk::verify(){
     accept();
     return;
-
 }
+

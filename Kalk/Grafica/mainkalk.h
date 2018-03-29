@@ -12,6 +12,7 @@
 #include <QInputDialog>
 #include <QListWidget>
 #include <QGridLayout>
+#include "listwidg.h"
 
 class MainKalk : public QWidget
 {
@@ -21,9 +22,10 @@ public:
 
 public slots:
     void crea();
+    void aggWidg();
 
 signals:
-    void creato(Punto a);
+    void creato();
 };
 
 #endif // MAINKALK_H
