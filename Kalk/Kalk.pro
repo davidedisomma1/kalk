@@ -19,7 +19,6 @@ SOURCES += main.cpp\
     Grafica/inputpanelkalk.cpp \
     Grafica/mainkalk.cpp \
     Grafica/listmodel.cpp\
-    Logica/punto.cpp
 
 HEADERS  += Logica/punto.h \
     Grafica/mainwindow.h \
