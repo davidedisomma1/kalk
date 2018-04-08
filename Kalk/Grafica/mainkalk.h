@@ -10,7 +10,7 @@
 #include <QApplication>
 #include <QLabel>
 #include <QInputDialog>
-#include <QListWidget>
+#include <QListView>
 #include <QGridLayout>
 
 class MainKalk : public QWidget

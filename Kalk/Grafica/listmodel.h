@@ -10,7 +10,7 @@ class listModel : public QAbstractListModel{
 public:
     listModel(QObject *parent = 0);
 
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    int rowCount(const QModelIndex &) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 private:
     QList<Punto*> listaPunti;

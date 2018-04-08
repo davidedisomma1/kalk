@@ -4,10 +4,12 @@
 
 MainKalk::MainKalk(QWidget *parent) : QWidget(parent){
         QWidget* window=new QMainWindow;
-        QListWidget* listaPunti=new QListWidget(this);
+        QListView* listaPunti=new QListView(this);
         QPushButton* creaPunto=new QPushButton("Crea punto",this);
         QGridLayout* layoutGriglia=new QGridLayout(this);
-        listModel* modello=new listModel();
+        listModel* modello=new listModel(listaPunti);
+
+        listaPunti->setModel(modello);
 
         window->resize(320, 240);
         layoutGriglia->addWidget(listaPunti);

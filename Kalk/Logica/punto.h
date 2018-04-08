@@ -25,7 +25,7 @@ public:
     Punto* duplicazione(QString)const;
     Punto* simmetricoX(QString)const;
     Punto* simmetricoY(QString)const;
-    Punto* simmetricoO(QString etichetta)const;
+    Punto* simmetricoO(QString)const;
     Linea* joinOrigine(QString)const;
     void traslazione(qreal,qreal);
     qreal distanzaP(const Punto&)const;
@@ -34,5 +34,5 @@ public:
     QString getTag()const;
 };
 std::ostream& operator<<(std::ostream& stream,const Punto& p);
-Q_DECLARE_METATYPE(Punto);
+Q_DECLARE_METATYPE(Punto*);
 #endif // PUNTO
