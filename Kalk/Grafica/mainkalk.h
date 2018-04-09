@@ -19,6 +19,12 @@ class MainKalk : public QWidget
 public:
     explicit MainKalk(QWidget *parent = 0);
 
+    QWidget* window;
+    QListView* listaPunti;
+    QPushButton* creaPunto;
+    QGridLayout* layoutGriglia;
+    listModel* modello;
+
 public slots:
     void crea();
 
