@@ -11,6 +11,7 @@ MainKalk::MainKalk(QWidget *parent) : QWidget(parent){
         modello=new listModel(listaPunti);
 
         listaPunti->setModel(modello);
+
         window->resize(320, 240);
         layoutGriglia->addWidget(listaPunti);
         layoutGriglia->addWidget(creaPunto);
@@ -21,11 +22,12 @@ MainKalk::MainKalk(QWidget *parent) : QWidget(parent){
 }
 
 void MainKalk::crea(){
-    inputPanelKalk *prova=new inputPanelKalk("Crea Punto",this);
-    if(prova->exec()==QDialog::Accepted){
-        Punto *nuovoPunto=new Punto(prova->getInputTag(),prova->getInputX(),prova->getInputY());
+    inputPanelKalk *inputPunto=new inputPanelKalk("Crea Punto",this);
+    if(inputPunto->exec()==QDialog::Accepted){
+        Punto *nuovoPunto=new Punto(inputPunto->getInputTag(),inputPunto->getInputX(),inputPunto->getInputY());
         modello->inserisciPunto(modello->numeroPunti(),*nuovoPunto);
     }
+    delete prova;
 }
 
 void MainKalk::elimina(){
