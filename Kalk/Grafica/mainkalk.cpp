@@ -11,11 +11,11 @@ MainKalk::MainKalk(QWidget *parent) : QWidget(parent){
         modello=new listModel(listaPunti);
 
         listaPunti->setModel(modello);
-
         window->resize(320, 240);
         layoutGriglia->addWidget(listaPunti);
         layoutGriglia->addWidget(creaPunto);
         layoutGriglia->addWidget(eliminaPunto);
+
         QObject::connect(creaPunto,SIGNAL(released()),this,SLOT(crea()));
         QObject::connect(eliminaPunto,SIGNAL(released()),this,SLOT(elimina()));
 }
@@ -30,8 +30,7 @@ void MainKalk::crea(){
 
 void MainKalk::elimina(){
     QModelIndexList posizione=listaPunti->selectionModel()->selectedIndexes();
-    int intero=posizione[0].row();
-    modello->removeRows(intero,1);
+    modello->removeRows(posizione[0].row(),1);
 
 }
 
