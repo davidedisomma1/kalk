@@ -9,9 +9,11 @@ int listModel::rowCount(const QModelIndex & parent = QModelIndex() ) const
 
 bool listModel::insertRows(int position, int rows, const QModelIndex &parent){
     beginInsertRows(QModelIndex(), position, position+rows-1);
+
     for (int row = 0; row < rows; ++row) {
         listaPunti.insert(position, new Punto());
     }
+
     endInsertRows();
     return true;
 }
