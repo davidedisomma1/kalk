@@ -42,17 +42,19 @@ bool listModel::removeRows(int position, int rows, const QModelIndex &parent){
 }
 
 QVariant listModel::data(const QModelIndex &index, int role) const{
-   /* if (!index.isValid())
-            return QVariant();
+    if (!index.isValid())
+        return QVariant();
     if (index.row() >= listaPunti.size() || index.row() < 0)
-            return QVariant(); */
+        return QVariant();
     if (role == Qt::DisplayRole) {
-        QString stringa;
-
-        stringa.push_back((listaPunti.at(index.row()))->getTag());
-      return  stringa;
-       // QVariant v=QVariant::fromValue(*(listaPunti.at(index.row())))  ;
-       // return v;
+        QString stringaOut;
+        stringaOut.push_back((listaPunti.at(index.row()))->getTag());
+        stringaOut.push_back("(");
+        stringaOut.push_back(QString::number((listaPunti.at(index.row()))->x()));
+        stringaOut.push_back(",");
+        stringaOut.push_back(QString::number((listaPunti.at(index.row()))->y()));
+        stringaOut.push_back(")");
+        return  stringaOut;
     }
     return QVariant();
 }
