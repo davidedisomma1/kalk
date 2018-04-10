@@ -30,6 +30,17 @@ void listModel::inserisciPunto(int position,const Punto& p){
     listaPunti.replace(position,const_cast<Punto*>(&p));
 }
 
+bool listModel::removeRows(int position, int rows, const QModelIndex &parent){
+    beginRemoveRows(QModelIndex(), position, position+rows-1);
+
+    for (int row = 0; row < rows; ++row) {
+        listaPunti.removeAt(position);
+    }
+
+    endRemoveRows();
+    return true;
+}
+
 QVariant listModel::data(const QModelIndex &index, int role) const{
    /* if (!index.isValid())
             return QVariant();

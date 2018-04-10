@@ -21,12 +21,16 @@ public:
 
     QWidget* window;
     QListView* listaPunti;
+
     QPushButton* creaPunto;
+    QPushButton* eliminaPunto;
+
     QGridLayout* layoutGriglia;
     listModel* modello;
 
 public slots:
     void crea();
+    void elimina();
 
 signals:
     void creato();
