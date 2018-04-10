@@ -27,7 +27,7 @@ void MainKalk::crea(){
         Punto *nuovoPunto=new Punto(inputPunto->getInputTag(),inputPunto->getInputX(),inputPunto->getInputY());
         modello->inserisciPunto(modello->numeroPunti(),*nuovoPunto);
     }
-    delete prova;
+    delete inputPunto;
 }
 
 void MainKalk::elimina(){
