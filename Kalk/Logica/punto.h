@@ -1,22 +1,26 @@
 #ifndef PUNTO
 #define PUNTO
 
-#include <QPointF>
 #include <QLineF>
 #include <QString>
 #include <iostream>
 #include <QtCore/qmath.h>
 #include <QMetaType>
+#include "tag.h"
 
 class Linea: public QLineF{};
 
-class Punto: public QPointF{
+class Punto:public Tag{
 private:
-    QString tag;
+    double X;
+    double Y;
 public:
 
-    Punto(QString="A",qreal=0,qreal=0);
+    Punto(QString="A",double=0,double=0);
     Punto(const Punto&)=default;
+
+    double x()const;
+    double y()const;
 
     Linea* operator+(const Punto&) const;
     void operator-(const Punto&);
@@ -28,10 +32,9 @@ public:
     Punto* simmetricoO(QString)const;
     Linea* joinOrigine(QString)const;
     void traslazione(qreal,qreal);
-    qreal distanzaP(const Punto&)const;
-    qreal distanzaO()const;
-    void setTag(QString);
-    QString getTag()const;
+    double distanzaO()const;
+
+    double distanzaP(const Punto&)const; //da fare
 };
 std::ostream& operator<<(std::ostream& stream,const Punto& p);
 Q_DECLARE_METATYPE(Punto*);

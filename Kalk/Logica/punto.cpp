@@ -1,17 +1,18 @@
 #include "punto.h"
 
 
-Punto::Punto(QString s,qreal x, qreal y):QPointF(x,y),tag(s){}
-
-QString Punto::getTag()const{
-    return tag;
+Punto::Punto(QString s,double cX,double cY):Tag(s),X(cX),Y(cY){
 }
 
-void Punto::setTag(QString s){
-    tag=s;
+double Punto::y()const{
+    return Y;
 }
 
-qreal Punto::distanzaO()const{
+double Punto::x()const{
+    return X;
+}
+
+double Punto::distanzaO()const{
     return (qSqrt(qPow(x(),2)+qPow(y(),2)));
 }
 
@@ -20,13 +21,13 @@ qreal Punto::distanzaO()const{
 }*/
 
 bool Punto::operator==(const Punto& b)const{
-    return ((tag==b.getTag())&&(x()==b.x())&&(y()==b.y()));
+    return ((getTag()==b.getTag())&&(x()==b.x())&&(y()==b.y()));
 }
 
-std::ostream& operator<<(std::ostream& stream,const Punto& p){
-    stream<<p.getTag().toStdString()<<'('<<p.x()<<","<<p.y()<<')';
+/*std::ostream& operator<<(std::ostream& stream,const Punto& p){
+    stream<<p.tag.getTag().toStdString()<<'('<<p.x()<<","<<p.y()<<')';
     return stream;
-}
+}*/
 
 Punto* Punto::duplicazione(QString etichetta)const{
     return new Punto(etichetta, x(), y());

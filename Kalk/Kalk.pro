@@ -19,11 +19,13 @@ SOURCES += main.cpp\
     Grafica/inputpanelkalk.cpp \
     Grafica/mainkalk.cpp \
     Grafica/listmodel.cpp\
+    Logica/tag.cpp
 
 HEADERS  += Logica/punto.h \
     Grafica/mainwindow.h \
     Grafica/inputpanelkalk.h \
     Grafica/mainkalk.h \
-    Grafica/listmodel.h
+    Grafica/listmodel.h \
+    Logica/tag.h
 
 FORMS    += Grafica/mainwindow.ui

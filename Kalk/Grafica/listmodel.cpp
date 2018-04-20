@@ -24,7 +24,8 @@ bool listModel::removeRows(int position, int rows, const QModelIndex &parent){
     beginRemoveRows(QModelIndex(), position, position+rows-1);
 
     for (int row = 0; row < rows; ++row) {
-        listaPunti.removeAt(position);
+        Punto* p=listaPunti.takeAt(position);
+        delete p;
     }
 
     endRemoveRows();
