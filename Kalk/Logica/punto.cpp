@@ -1,5 +1,7 @@
 #include "punto.h"
+#include "linea.h"
 
+Punto Punto::origine("O",0,0);
 
 Punto::Punto(QString s,double cX,double cY):Tag(s),X(cX),Y(cY){
 }
@@ -16,9 +18,10 @@ double Punto::distanzaO()const{
     return (qSqrt(qPow(x(),2)+qPow(y(),2)));
 }
 
-/*Linea* Punto::operator+(const Punto&b) const{
+Linea* Punto::operator+(const Punto& b) const{
     return new Linea(*this, b);
-}*/
+}
+
 
 bool Punto::operator==(const Punto& b)const{
     return ((getTag()==b.getTag())&&(x()==b.x())&&(y()==b.y()));
@@ -45,6 +48,6 @@ Punto* Punto::simmetricoO(QString etichetta)const{
     return new Punto(etichetta,-x(),-y());
 }
 
-/*Linea* Punto::joinOrigine(QString etichetta)const{
-    return new Linea(etichetta,*this,0);
-}*/
+Linea* Punto::joinOrigine()const{
+    return new Linea(*this,origine);
+}
