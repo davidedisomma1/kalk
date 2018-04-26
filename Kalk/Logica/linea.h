@@ -13,6 +13,9 @@ public:
     Linea(QString="A",double=0,double=0,QString="B",double=0,double=0);
 
     QString getTag() const;
+    QString output()const;
+    void setInizio(const Punto&);
+    void setFine(const Punto&);
     Spezzata* operator+(const Linea&)const;
     Spezzata* connect(const Linea&)const;
     Linea* prodottoVettoriale(const Linea&)const;

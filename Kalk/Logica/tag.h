@@ -1,6 +1,6 @@
 #ifndef TAG_H
 #define TAG_H
-#include<Qstring>
+#include<QString>
 
 class Tag{
 private:
@@ -8,8 +8,9 @@ private:
 public:
     Tag(QString="A");
     QString getTag()const;
-    virtual void setTag(QString);
     bool operator==(const Tag&)const;
+    virtual void setTag(QString);
+    virtual QString output()const=0;
     virtual ~Tag()=0;
 };
 

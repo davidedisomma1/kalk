@@ -25,6 +25,7 @@ public:
     Linea* operator+(const Punto&) const;
   //  void operator-(const Punto&); da fare
     bool operator==(const Punto&)const;
+    QString output()const;
 
     Punto* duplicazione(QString)const;
     Punto* simmetricoX(QString)const;

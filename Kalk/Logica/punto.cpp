@@ -27,10 +27,10 @@ bool Punto::operator==(const Punto& b)const{
     return ((getTag()==b.getTag())&&(x()==b.x())&&(y()==b.y()));
 }
 
-/*std::ostream& operator<<(std::ostream& stream,const Punto& p){
-    stream<<p.tag.getTag().toStdString()<<'('<<p.x()<<","<<p.y()<<')';
+std::ostream& operator<<(std::ostream& stream,const Punto& p){
+    stream<<p.getTag().toStdString()<<'('<<p.x()<<","<<p.y()<<')';
     return stream;
-}*/
+}
 
 Punto* Punto::duplicazione(QString etichetta)const{
     return new Punto(etichetta, x(), y());
@@ -50,4 +50,9 @@ Punto* Punto::simmetricoO(QString etichetta)const{
 
 Linea* Punto::joinOrigine()const{
     return new Linea(*this,origine);
+}
+
+QString Punto::output()const{
+    QString stringaOut;
+    return stringaOut+getTag()+"("+QString::number(x())+","+QString::number(y())+")";
 }
