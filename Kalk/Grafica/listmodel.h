@@ -18,7 +18,7 @@ public:
     void inserisciPunto(int,const Punto&);
     int numeroPunti()const;
 private:
-    QList<Punto*> listaPunti;
+    QList<Tag*> listaElementi;
 };
 
 #endif // LISTMODEL_H

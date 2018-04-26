@@ -9,6 +9,7 @@
 #include <QDialog>
 #include <QFormLayout>
 #include "../Logica/punto.h"
+#include "../Logica/linea.h"
 
 class inputPanelKalk: public QDialog{
     Q_OBJECT
