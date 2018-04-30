@@ -20,13 +20,15 @@ public:
     explicit MainKalk(QWidget *parent = 0);
 
     QWidget* window;
-    QListView* listaElementi;
+    QListView* listaElementi1;
+    QListView* listaElementi2;
 
     QPushButton* buttonCreaPunto;
     QPushButton* buttonCreaLinea;
     QPushButton* buttonElimina;
 
     QGridLayout* layoutGriglia;
+    QGridLayout* layoutButton;
     listModel* modello;
 
 public slots:

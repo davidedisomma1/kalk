@@ -4,20 +4,25 @@
 
 MainKalk::MainKalk(QWidget *parent) : QWidget(parent){
         window=new QMainWindow;
-        listaElementi=new QListView(this);
+        listaElementi1=new QListView(this);
+        listaElementi2=new QListView(this);
         buttonCreaPunto=new QPushButton("Crea punto",this);
         buttonCreaLinea=new QPushButton("Crea linea",this);
         buttonElimina=new QPushButton("Elimina elemento",this);
         layoutGriglia=new QGridLayout(this);
-        modello=new listModel(listaElementi);
+        layoutButton=new QGridLayout();
+        modello=new listModel();
 
-        listaElementi->setModel(modello);
+        listaElementi1->setModel(modello);
+        listaElementi2->setModel(modello);
 
         window->resize(320, 240);
-        layoutGriglia->addWidget(listaElementi);
-        layoutGriglia->addWidget(buttonCreaPunto);
-        layoutGriglia->addWidget(buttonCreaLinea);
-        layoutGriglia->addWidget(buttonElimina);
+        layoutGriglia->addWidget(listaElementi1,0,0);
+        layoutGriglia->addWidget(listaElementi2,0,2);
+        layoutButton->addWidget(buttonCreaPunto,0,0);
+        layoutButton->addWidget(buttonCreaLinea,1,0);
+        layoutButton->addWidget(buttonElimina,2,0);
+        layoutGriglia->addItem(layoutButton,0,1);
 
         QObject::connect(buttonCreaPunto,SIGNAL(released()),this,SLOT(creaPunto()));
         QObject::connect(buttonCreaLinea,SIGNAL(released()),this,SLOT(creaLinea()));
@@ -53,9 +58,12 @@ void MainKalk::creaLinea(){
 }
 
 void MainKalk::elimina(){
-    QModelIndexList posizione=listaElementi->selectionModel()->selectedIndexes();
-    modello->removeRows(posizione[0].row(),1);
-
+    QModelIndexList posizione1=listaElementi1->selectionModel()->selectedIndexes();
+    QModelIndexList posizione2=listaElementi2->selectionModel()->selectedIndexes();
+    if(posizione2.isEmpty())
+    modello->removeRows(posizione1[0].row(),1);
+    if(posizione1.isEmpty())
+    modello->removeRows(posizione2[0].row(),1);
 }
 
 
