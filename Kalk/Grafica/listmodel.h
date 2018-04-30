@@ -16,7 +16,7 @@ public:
     bool removeRows(int position, int rows, const QModelIndex &parent= QModelIndex());
 
     void inserisciElemento(int,Tag*);
-    int numeroPunti()const;
+    int numeroElementi()const;
 private:
     QList<Tag*> listaElementi;
 };

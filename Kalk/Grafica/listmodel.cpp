@@ -44,7 +44,7 @@ QVariant listModel::data(const QModelIndex &index, int role) const{
     return QVariant();
 }
 
-int listModel::numeroPunti()const{
+int listModel::numeroElementi()const{
     return listaElementi.length();
 }
 

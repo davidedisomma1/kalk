@@ -28,7 +28,7 @@ void MainKalk::creaPunto(){
     inputPanelKalk *inputPunto=new inputPanelKalk("Crea Punto",this);
     if(inputPunto->exec()==QDialog::Accepted){
         Punto *nuovoPunto=new Punto(inputPunto->getInputTag(),inputPunto->getInputX(),inputPunto->getInputY());
-        modello->inserisciElemento(modello->numeroPunti(),nuovoPunto);
+        modello->inserisciElemento(modello->numeroElementi(),nuovoPunto);
     }
     delete inputPunto;
 }
@@ -38,18 +38,18 @@ void MainKalk::creaLinea(){
     inputPanelKalk *inputPuntoInizio=new inputPanelKalk("Crea Punto Inizio",this);
     if(inputPuntoInizio->exec()==QDialog::Accepted){
         Punto *nuovoPunto=new Punto(inputPuntoInizio->getInputTag(),inputPuntoInizio->getInputX(),inputPuntoInizio->getInputY());
-        modello->inserisciElemento(modello->numeroPunti(),nuovoPunto);
+        modello->inserisciElemento(modello->numeroElementi(),nuovoPunto);
         nuovaLinea->setInizio(*nuovoPunto);
     }
     delete inputPuntoInizio;
     inputPanelKalk *inputPuntoFine=new inputPanelKalk("Crea Punto Fine",this);
     if(inputPuntoFine->exec()==QDialog::Accepted){
         Punto *nuovoPunto=new Punto(inputPuntoFine->getInputTag(),inputPuntoFine->getInputX(),inputPuntoFine->getInputY());
-        modello->inserisciElemento(modello->numeroPunti(),nuovoPunto);
+        modello->inserisciElemento(modello->numeroElementi(),nuovoPunto);
         nuovaLinea->setFine(*nuovoPunto);
     }
     delete inputPuntoFine;
-    modello->inserisciElemento(modello->numeroPunti(),nuovaLinea);
+    modello->inserisciElemento(modello->numeroElementi(),nuovaLinea);
 }
 
 void MainKalk::elimina(){
