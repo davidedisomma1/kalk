@@ -48,7 +48,7 @@ int listModel::numeroPunti()const{
     return listaElementi.length();
 }
 
-void listModel::inserisciPunto(int position,const Punto& p){
+void listModel::inserisciElemento(int position, Tag* p){
     insertRows(position,1);
-    listaElementi.replace(position,const_cast<Punto*>(&p));
+    listaElementi.replace(position,p);
 }
