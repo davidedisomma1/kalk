@@ -15,15 +15,16 @@ public:
     QString output()const;
     void setInizio(const Punto&);
     void setFine(const Punto&);
-    Spezzata* operator+(const Linea&)const;
-    Spezzata* operator+(const Punto&)const;
+    Tag* operator+(const Tag&) const;
+
+    Linea* simmetricoX(QString)const;
+    Linea* simmetricoY(QString)const;
+    Linea* simmetricoO(QString)const;
+    void traslazione(double,double);
+
+    Punto* puntoMedio()const;
     Spezzata* connect(const Linea&)const;
     Linea* prodottoVettoriale(const Linea&)const;
-    Linea* duplicazione(QString,QString) const;
-    Linea* simmetricoX(QString,QString)const;
-    Linea* simmetricoY(QString,QString)const;
-    Linea* simmetricoO(QString,QString)const;
-    Punto* puntoMedio()const;
 
 };
 

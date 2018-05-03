@@ -18,8 +18,9 @@ double Punto::distanzaO()const{
     return (qSqrt(qPow(x(),2)+qPow(y(),2)));
 }
 
-Linea* Punto::operator+(const Punto& b) const{
-    return new Linea(*this, b);
+Tag* Punto::operator+(const Tag &b) const{
+    if(dynamic_cast<Punto*>(&(const_cast<Tag&>(b))))
+    return new Linea(*this, static_cast<Punto&>((const_cast<Tag&>(b))));
 }
 
 
@@ -32,9 +33,6 @@ std::ostream& operator<<(std::ostream& stream,const Punto& p){
     return stream;
 }
 
-Punto* Punto::duplicazione(QString etichetta)const{
-    return new Punto(etichetta, x(), y());
-}
 
 Punto* Punto::simmetricoX(QString etichetta)const{
     return new Punto(etichetta,x(),-y());
@@ -48,6 +46,11 @@ Punto* Punto::simmetricoO(QString etichetta)const{
     return new Punto(etichetta,-x(),-y());
 }
 
+void Punto::traslazione(double nX,double nY){
+    X=X+nX;
+    Y=Y+nY;
+}
+
 Linea* Punto::joinOrigine()const{
     return new Linea(*this,origine);
 }
@@ -57,7 +60,4 @@ QString Punto::output()const{
     return stringaOut+getTag()+"("+QString::number(x())+","+QString::number(y())+")";
 }
 
-void Punto::traslazione(double nX,double nY){
-    X=X+nX;
-    Y=Y+nY;
-}
+

@@ -22,19 +22,17 @@ public:
     double x()const;
     double y()const;
 
-    Linea* operator+(const Punto&) const;
-  //  void operator-(const Punto&); da fare
+    Tag* operator+(const Tag&) const;
     bool operator==(const Punto&)const;
     QString output()const;
 
-    Punto* duplicazione(QString)const;
     Punto* simmetricoX(QString)const;
     Punto* simmetricoY(QString)const;
     Punto* simmetricoO(QString)const;
-    Linea* joinOrigine()const;
     void traslazione(double,double);
-    double distanzaO()const;
 
+    Linea* joinOrigine()const;
+    double distanzaO()const;
     double distanzaP(const Punto&)const; //da fare
 };
 Q_DECLARE_METATYPE(Punto*)

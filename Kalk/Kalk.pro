@@ -16,16 +16,18 @@ TEMPLATE = app
 SOURCES += main.cpp\
     Logica/punto.cpp \
     Grafica/mainwindow.cpp \
-    Grafica/inputpanelkalk.cpp \
     Grafica/mainkalk.cpp \
     Grafica/listmodel.cpp\
-    Logica/tag.cpp
+    Logica/tag.cpp \
+    Logica/linea.cpp \
+    Grafica/inputpunto.cpp
 
 HEADERS  += Logica/punto.h \
     Grafica/mainwindow.h \
-    Grafica/inputpanelkalk.h \
     Grafica/mainkalk.h \
     Grafica/listmodel.h \
-    Logica/tag.h
+    Logica/tag.h \
+    Logica/linea.h \
+    Grafica/inputpunto.h
 
 FORMS    += Grafica/mainwindow.ui

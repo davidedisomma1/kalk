@@ -17,4 +17,22 @@ QString Linea::output()const{
             QString::number(inizio.y())+"),("+QString::number(fine.x())+","+QString::number(fine.y())+")";
 }
 
+Tag* Linea::operator+(const Tag& t)const{
 
+}
+
+Linea* Linea::simmetricoX(QString etichetta)const{
+
+}
+
+Linea* Linea::simmetricoY(QString etichetta)const{
+
+}
+
+Linea* Linea::simmetricoO(QString etichetta)const{
+
+}
+
+void Linea::traslazione(double nX,double nY){
+
+}
