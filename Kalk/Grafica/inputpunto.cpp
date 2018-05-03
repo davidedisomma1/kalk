@@ -1,14 +1,18 @@
-#include "inputpanelkalk.h"
+#include "inputpunto.h"
 
 
-inputPanelKalk::inputPanelKalk(const QString& titolo, QWidget* parent): QDialog(parent){
+inputPunto::inputPunto(const QString& titolo, QWidget* parent): QDialog(parent){
     tagLabel=new QLabel("Tag");
     xLabel=new QLabel("X");
     yLabel=new QLabel("Y");
 
     inputTag=new QLineEdit;
     inputX=new QDoubleSpinBox;
+    inputX->setRange(std::numeric_limits<double>::lowest(),std::numeric_limits<double>::max());
+    inputX->setSizePolicy(QSizePolicy::Ignored,QSizePolicy::Minimum);
     inputY=new QDoubleSpinBox;
+    inputY->setRange(std::numeric_limits<double>::lowest(),std::numeric_limits<double>::max());
+    inputY->setSizePolicy(QSizePolicy::Ignored,QSizePolicy::Minimum);
 
     buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
 
@@ -25,11 +29,11 @@ inputPanelKalk::inputPanelKalk(const QString& titolo, QWidget* parent): QDialog(
     setWindowTitle(titolo);
 }
 
-QString inputPanelKalk::getInputTag(){return inputTag->text();}
-qreal inputPanelKalk::getInputX(){return inputX->value();}
-qreal inputPanelKalk::getInputY(){return inputY->value();}
+QString inputPunto::getInputTag(){return inputTag->text();}
+qreal inputPunto::getInputX(){return inputX->value();}
+qreal inputPunto::getInputY(){return inputY->value();}
 
-void inputPanelKalk::verify(){
+void inputPunto::verify(){
     accept();
     return;
 }

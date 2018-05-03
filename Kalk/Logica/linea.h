@@ -12,11 +12,11 @@ public:
     Linea(const Punto&,const Punto&);
     Linea(QString="A",double=0,double=0,QString="B",double=0,double=0);
 
-    QString getTag() const;
     QString output()const;
     void setInizio(const Punto&);
     void setFine(const Punto&);
     Spezzata* operator+(const Linea&)const;
+    Spezzata* operator+(const Punto&)const;
     Spezzata* connect(const Linea&)const;
     Linea* prodottoVettoriale(const Linea&)const;
     Linea* duplicazione(QString,QString) const;
@@ -24,8 +24,7 @@ public:
     Linea* simmetricoY(QString,QString)const;
     Linea* simmetricoO(QString,QString)const;
     Punto* puntoMedio()const;
-    Spezzata* aggiungiPunto(const Punto&)const;
-    //stessaRetta
+
 };
 
 #endif // LINEA_H

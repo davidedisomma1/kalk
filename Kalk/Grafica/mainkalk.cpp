@@ -1,17 +1,20 @@
 #include "mainkalk.h"
-#include "inputpanelkalk.h"
+#include "inputpunto.h"
 
 
-MainKalk::MainKalk(QWidget *parent) : QWidget(parent){
-        window=new QMainWindow;
+MainKalk::MainKalk(QWidget *parent) : QWidget(parent),modello(new listModel()),window(new QMainWindow()){
+
         listaElementi1=new QListView(this);
         listaElementi2=new QListView(this);
+
         buttonCreaPunto=new QPushButton("Crea punto",this);
         buttonCreaLinea=new QPushButton("Crea linea",this);
         buttonElimina=new QPushButton("Elimina elemento",this);
+        buttonModify=new QPushButton("Modifica tag",this);
+
         layoutGriglia=new QGridLayout(this);
         layoutButton=new QGridLayout();
-        modello=new listModel();
+
 
         listaElementi1->setModel(modello);
         listaElementi2->setModel(modello);
@@ -22,36 +25,40 @@ MainKalk::MainKalk(QWidget *parent) : QWidget(parent){
         layoutButton->addWidget(buttonCreaPunto,0,0);
         layoutButton->addWidget(buttonCreaLinea,1,0);
         layoutButton->addWidget(buttonElimina,2,0);
+        layoutButton->addWidget(buttonModify,3,0);
         layoutGriglia->addItem(layoutButton,0,1);
 
         QObject::connect(buttonCreaPunto,SIGNAL(released()),this,SLOT(creaPunto()));
         QObject::connect(buttonCreaLinea,SIGNAL(released()),this,SLOT(creaLinea()));
         QObject::connect(buttonElimina,SIGNAL(released()),this,SLOT(elimina()));
+        QObject::connect(buttonModify,SIGNAL(released()),this,SLOT(cambiaTag()));
 }
 
 void MainKalk::creaPunto(){
-    inputPanelKalk *inputPunto=new inputPanelKalk("Crea Punto",this);
-    if(inputPunto->exec()==QDialog::Accepted){
-        Punto *nuovoPunto=new Punto(inputPunto->getInputTag(),inputPunto->getInputX(),inputPunto->getInputY());
+    inputPunto *inputNuovoPunto=new inputPunto("Crea Punto",this);
+    if(inputNuovoPunto->exec()==QDialog::Accepted){
+        Punto *nuovoPunto=new Punto(inputNuovoPunto->getInputTag(),inputNuovoPunto->getInputX(),inputNuovoPunto->getInputY());
         modello->inserisciElemento(modello->numeroElementi(),nuovoPunto);
     }
-    delete inputPunto;
+    delete inputNuovoPunto;
 }
 
 void MainKalk::creaLinea(){
     Linea* nuovaLinea=new Linea();
-    inputPanelKalk *inputPuntoInizio=new inputPanelKalk("Crea Punto Inizio",this);
+    inputPunto *inputPuntoInizio=new inputPunto("Crea Punto Inizio",this);
     if(inputPuntoInizio->exec()==QDialog::Accepted){
         Punto *nuovoPunto=new Punto(inputPuntoInizio->getInputTag(),inputPuntoInizio->getInputX(),inputPuntoInizio->getInputY());
         modello->inserisciElemento(modello->numeroElementi(),nuovoPunto);
         nuovaLinea->setInizio(*nuovoPunto);
+        nuovaLinea->setTag(nuovoPunto->getTag());
     }
     delete inputPuntoInizio;
-    inputPanelKalk *inputPuntoFine=new inputPanelKalk("Crea Punto Fine",this);
+    inputPunto *inputPuntoFine=new inputPunto("Crea Punto Fine",this);
     if(inputPuntoFine->exec()==QDialog::Accepted){
         Punto *nuovoPunto=new Punto(inputPuntoFine->getInputTag(),inputPuntoFine->getInputX(),inputPuntoFine->getInputY());
         modello->inserisciElemento(modello->numeroElementi(),nuovoPunto);
         nuovaLinea->setFine(*nuovoPunto);
+        nuovaLinea->setTag(nuovaLinea->getTag()+nuovoPunto->getTag());
     }
     delete inputPuntoFine;
     modello->inserisciElemento(modello->numeroElementi(),nuovaLinea);
@@ -59,13 +66,18 @@ void MainKalk::creaLinea(){
 
 void MainKalk::elimina(){
     QModelIndexList posizione1=listaElementi1->selectionModel()->selectedIndexes();
-    QModelIndexList posizione2=listaElementi2->selectionModel()->selectedIndexes();
-    if(posizione2.isEmpty())
+    if(!posizione1.isEmpty())
     modello->removeRows(posizione1[0].row(),1);
-    if(posizione1.isEmpty())
-    modello->removeRows(posizione2[0].row(),1);
 }
 
 
+void MainKalk::cambiaTag(){
+    QModelIndexList posizione1=listaElementi1->selectionModel()->selectedIndexes();
+    if(!posizione1.isEmpty()){
+        QString text = QInputDialog::getText(this,tr("Inserisci tag"),tr("Inserisci tag"));
+        modello->ritornaElemento(posizione1[0].row())->setTag(text);
+        modello->aggiorna(posizione1[0]);
+    }
 
+}
 

@@ -56,3 +56,8 @@ QString Punto::output()const{
     QString stringaOut;
     return stringaOut+getTag()+"("+QString::number(x())+","+QString::number(y())+")";
 }
+
+void Punto::traslazione(double nX,double nY){
+    X=X+nX;
+    Y=Y+nY;
+}

@@ -19,7 +19,6 @@ bool listModel::insertRows(int position, int rows, const QModelIndex &parent){
 }
 
 
-
 bool listModel::removeRows(int position, int rows, const QModelIndex &parent){
     beginRemoveRows(QModelIndex(), position, position+rows-1);
 
@@ -51,4 +50,12 @@ int listModel::numeroElementi()const{
 void listModel::inserisciElemento(int position, Tag* p){
     insertRows(position,1);
     listaElementi.replace(position,p);
+}
+
+Tag* listModel::ritornaElemento(int position)const{
+    return listaElementi.at(position);
+}
+
+void listModel::aggiorna(const QModelIndex &index){
+     emit(dataChanged(index, index));
 }

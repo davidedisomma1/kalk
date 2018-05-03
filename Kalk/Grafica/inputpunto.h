@@ -1,5 +1,5 @@
-#ifndef INPUTPANELKALK_H
-#define INPUTPANELKALK_H
+#ifndef INPUTPUNTO_H
+#define INPUTPUNTO_H
 
 #include <QWidget>
 #include <QLabel>
@@ -11,10 +11,10 @@
 #include "../Logica/punto.h"
 #include "../Logica/linea.h"
 
-class inputPanelKalk: public QDialog{
+class inputPunto: public QDialog{
     Q_OBJECT
 public:
-    inputPanelKalk(const QString&, QWidget*);
+    inputPunto(const QString&, QWidget*);
 
 public slots:
     void verify();
@@ -39,4 +39,4 @@ private:
     QDialogButtonBox *buttonBox;
 };
 
-#endif // INPUTPANELKALK_H
+#endif // INPUTPUNTO_H

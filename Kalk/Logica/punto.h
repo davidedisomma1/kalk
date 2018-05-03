@@ -32,12 +32,12 @@ public:
     Punto* simmetricoY(QString)const;
     Punto* simmetricoO(QString)const;
     Linea* joinOrigine()const;
-    void traslazione(qreal,qreal);
+    void traslazione(double,double);
     double distanzaO()const;
 
     double distanzaP(const Punto&)const; //da fare
 };
-Q_DECLARE_METATYPE(Punto*);
+Q_DECLARE_METATYPE(Punto*)
 
 
 std::ostream& operator<<(std::ostream& stream,const Punto& p);

@@ -26,6 +26,7 @@ public:
     QPushButton* buttonCreaPunto;
     QPushButton* buttonCreaLinea;
     QPushButton* buttonElimina;
+    QPushButton* buttonModify;
 
     QGridLayout* layoutGriglia;
     QGridLayout* layoutButton;
@@ -35,9 +36,9 @@ public slots:
     void creaPunto();
     void creaLinea();
     void elimina();
+    void cambiaTag();
 
 signals:
-    void creato();
 };
 
 #endif // MAINKALK_H
