@@ -10,7 +10,11 @@ MainKalk::MainKalk(QWidget *parent) : QWidget(parent),modello(new listModel()),w
         buttonCreaPunto=new QPushButton("Crea punto",this);
         buttonCreaLinea=new QPushButton("Crea linea",this);
         buttonElimina=new QPushButton("Elimina elemento",this);
-        buttonModify=new QPushButton("Modifica tag",this);
+        buttonModifyTag=new QPushButton("Modifica tag",this);
+        buttonSimmetricoX=new QPushButton("Simmetrico X",this);
+        buttonSimmetricoY=new QPushButton("Simmetrico Y",this);
+        buttonSimmetricoO=new QPushButton("Simmetrico Origine",this);
+        buttonTraslazione=new QPushButton("Traslazione",this);
 
         layoutGriglia=new QGridLayout(this);
         layoutButton=new QGridLayout();
@@ -25,13 +29,21 @@ MainKalk::MainKalk(QWidget *parent) : QWidget(parent),modello(new listModel()),w
         layoutButton->addWidget(buttonCreaPunto,0,0);
         layoutButton->addWidget(buttonCreaLinea,1,0);
         layoutButton->addWidget(buttonElimina,2,0);
-        layoutButton->addWidget(buttonModify,3,0);
+        layoutButton->addWidget(buttonModifyTag,3,0);
+        layoutButton->addWidget(buttonSimmetricoO,4,0);
+        layoutButton->addWidget(buttonSimmetricoX,5,0);
+        layoutButton->addWidget(buttonSimmetricoY,6,0);
+        layoutButton->addWidget(buttonTraslazione,7,0);
         layoutGriglia->addItem(layoutButton,0,1);
 
         QObject::connect(buttonCreaPunto,SIGNAL(released()),this,SLOT(creaPunto()));
         QObject::connect(buttonCreaLinea,SIGNAL(released()),this,SLOT(creaLinea()));
         QObject::connect(buttonElimina,SIGNAL(released()),this,SLOT(elimina()));
-        QObject::connect(buttonModify,SIGNAL(released()),this,SLOT(cambiaTag()));
+        QObject::connect(buttonModifyTag,SIGNAL(released()),this,SLOT(cambiaTag()));
+        QObject::connect(buttonSimmetricoO,SIGNAL(released()),this,SLOT(simmetriaO()));
+        QObject::connect(buttonSimmetricoX,SIGNAL(released()),this,SLOT(simmetriaX()));
+        QObject::connect(buttonSimmetricoY,SIGNAL(released()),this,SLOT(simmetriaY()));
+  //      QObject::connect(buttonTraslazione,SIGNAL(released()),this,SLOT(traslazione()));
 }
 
 void MainKalk::creaPunto(){
@@ -81,3 +93,38 @@ void MainKalk::cambiaTag(){
 
 }
 
+void MainKalk::simmetriaO(){
+    QModelIndexList posizione1=listaElementi1->selectionModel()->selectedIndexes();
+    if(!posizione1.isEmpty()){
+        QString text = QInputDialog::getText(this,tr("Inserisci tag"),tr("Inserisci tag"));
+        modello->inserisciElemento(modello->numeroElementi(),modello->ritornaElemento(posizione1[0].row())->simmetricoO(text));
+    }
+
+}
+
+void MainKalk::simmetriaX(){
+    QModelIndexList posizione1=listaElementi1->selectionModel()->selectedIndexes();
+    if(!posizione1.isEmpty()){
+        QString text = QInputDialog::getText(this,tr("Inserisci tag"),tr("Inserisci tag"));
+        modello->inserisciElemento(modello->numeroElementi(),modello->ritornaElemento(posizione1[0].row())->simmetricoX(text));
+    }
+
+}
+
+void MainKalk::simmetriaY(){
+    QModelIndexList posizione1=listaElementi1->selectionModel()->selectedIndexes();
+    if(!posizione1.isEmpty()){
+        QString text = QInputDialog::getText(this,tr("Inserisci tag"),tr("Inserisci tag"));
+        modello->inserisciElemento(modello->numeroElementi(),modello->ritornaElemento(posizione1[0].row())->simmetricoY(text));
+    }
+
+}
+
+void MainKalk::traslazione(){
+    QModelIndexList posizione1=listaElementi1->selectionModel()->selectedIndexes();
+    if(!posizione1.isEmpty()){
+        QString text = QInputDialog::getText(this,tr("Inserisci tag"),tr("Inserisci tag"));
+        modello->inserisciElemento(modello->numeroElementi(),modello->ritornaElemento(posizione1[0].row())->simmetricoY(text));
+    }
+
+}

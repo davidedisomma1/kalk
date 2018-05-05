@@ -26,8 +26,11 @@ public:
     QPushButton* buttonCreaPunto;
     QPushButton* buttonCreaLinea;
     QPushButton* buttonElimina;
-    QPushButton* buttonModify;
-
+    QPushButton* buttonModifyTag;
+    QPushButton* buttonSimmetricoX;
+    QPushButton* buttonSimmetricoY;
+    QPushButton* buttonSimmetricoO;
+    QPushButton* buttonTraslazione;
     QGridLayout* layoutGriglia;
     QGridLayout* layoutButton;
     listModel* modello;
@@ -37,7 +40,10 @@ public slots:
     void creaLinea();
     void elimina();
     void cambiaTag();
-
+    void simmetriaX();
+    void simmetriaY();
+    void simmetriaO();
+    void traslazione();
 signals:
 };
 
