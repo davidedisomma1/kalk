@@ -14,6 +14,7 @@ double Punto::x()const{
     return X;
 }
 
+
 double Punto::distanzaO()const{
     return (qSqrt(qPow(x(),2)+qPow(y(),2)));
 }

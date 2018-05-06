@@ -11,10 +11,24 @@ void Linea::setFine(const Punto& f){
     fine=f;
 }
 
+QString Linea::getInizioTag()const{
+    return inizio.getTag();
+}
+
+QString Linea::getFineTag()const{
+    return fine.getTag();
+}
+
 QString Linea::output()const{
     QString stringaOut;
     return stringaOut+Tag::getTag()+" ("+QString::number(inizio.x())+","+
             QString::number(inizio.y())+"),("+QString::number(fine.x())+","+QString::number(fine.y())+")";
+}
+
+const Punto* Linea::trovaElemento(QString s)const{
+    if(inizio.getTag()==s) return &inizio;
+    if(fine.getTag()==s) return &fine;
+    return 0;
 }
 
 Tag* Linea::operator+(const Tag& t)const{
@@ -34,5 +48,6 @@ Linea* Linea::simmetricoO(QString etichetta)const{
 }
 
 void Linea::traslazione(double nX,double nY){
-
+    inizio.traslazione(nX,nY);
+    fine.traslazione(nX,nY);
 }

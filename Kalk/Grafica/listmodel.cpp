@@ -1,4 +1,5 @@
 #include "listmodel.h"
+#include <typeinfo>
 
 listModel::listModel(QObject *parent): QAbstractListModel(parent){}
 
@@ -43,9 +44,6 @@ QVariant listModel::data(const QModelIndex &index, int role) const{
     return QVariant();
 }
 
-int listModel::numeroElementi()const{
-    return listaElementi.length();
-}
 
 void listModel::inserisciElemento(int position, Tag* p){
     insertRows(position,1);
@@ -56,6 +54,20 @@ Tag* listModel::ritornaElemento(int position)const{
     return listaElementi.at(position);
 }
 
-void listModel::aggiorna(const QModelIndex &index){
-     emit(dataChanged(index, index));
+bool listModel::trovaDuplicato(QString s)const{
+    for(auto it=listaElementi.begin();it!=listaElementi.end();++it){
+        if((*it)->getTag()==s) return true;
+    }
+    return false;
+}
+
+void listModel::traslaComponenti(QString s,double nX,double nY){
+    for(auto it=listaElementi.constBegin();it!=listaElementi.constEnd();++it){
+        if(dynamic_cast<Linea*>(*it)){
+            const Tag* t=(static_cast<const Linea*>(*it))->trovaElemento(s);
+            if(t){
+                (const_cast<Tag*>(t))->traslazione(nX,nY);
+            }
+        }
+    }
 }

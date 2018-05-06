@@ -43,14 +43,14 @@ MainKalk::MainKalk(QWidget *parent) : QWidget(parent),modello(new listModel()),w
         QObject::connect(buttonSimmetricoO,SIGNAL(released()),this,SLOT(simmetriaO()));
         QObject::connect(buttonSimmetricoX,SIGNAL(released()),this,SLOT(simmetriaX()));
         QObject::connect(buttonSimmetricoY,SIGNAL(released()),this,SLOT(simmetriaY()));
-  //      QObject::connect(buttonTraslazione,SIGNAL(released()),this,SLOT(traslazione()));
+        QObject::connect(buttonTraslazione,SIGNAL(released()),this,SLOT(traslazione()));
 }
 
 void MainKalk::creaPunto(){
     inputPunto *inputNuovoPunto=new inputPunto("Crea Punto",this);
-    if(inputNuovoPunto->exec()==QDialog::Accepted){
+    if(inputNuovoPunto->exec()==QDialog::Accepted && !modello->trovaDuplicato(inputNuovoPunto->getInputTag())){
         Punto *nuovoPunto=new Punto(inputNuovoPunto->getInputTag(),inputNuovoPunto->getInputX(),inputNuovoPunto->getInputY());
-        modello->inserisciElemento(modello->numeroElementi(),nuovoPunto);
+        modello->inserisciElemento(modello->rowCount(QModelIndex()),nuovoPunto);
     }
     delete inputNuovoPunto;
 }
@@ -60,7 +60,8 @@ void MainKalk::creaLinea(){
     inputPunto *inputPuntoInizio=new inputPunto("Crea Punto Inizio",this);
     if(inputPuntoInizio->exec()==QDialog::Accepted){
         Punto *nuovoPunto=new Punto(inputPuntoInizio->getInputTag(),inputPuntoInizio->getInputX(),inputPuntoInizio->getInputY());
-        modello->inserisciElemento(modello->numeroElementi(),nuovoPunto);
+        if(!modello->trovaDuplicato(inputPuntoInizio->getInputTag())) modello->inserisciElemento(modello->rowCount(QModelIndex()),nuovoPunto);
+        else return;
         nuovaLinea->setInizio(*nuovoPunto);
         nuovaLinea->setTag(nuovoPunto->getTag());
     }
@@ -68,12 +69,13 @@ void MainKalk::creaLinea(){
     inputPunto *inputPuntoFine=new inputPunto("Crea Punto Fine",this);
     if(inputPuntoFine->exec()==QDialog::Accepted){
         Punto *nuovoPunto=new Punto(inputPuntoFine->getInputTag(),inputPuntoFine->getInputX(),inputPuntoFine->getInputY());
-        modello->inserisciElemento(modello->numeroElementi(),nuovoPunto);
+        if(!modello->trovaDuplicato(inputPuntoFine->getInputTag())) modello->inserisciElemento(modello->rowCount(QModelIndex()),nuovoPunto);
+        else return;
         nuovaLinea->setFine(*nuovoPunto);
         nuovaLinea->setTag(nuovaLinea->getTag()+nuovoPunto->getTag());
     }
     delete inputPuntoFine;
-    modello->inserisciElemento(modello->numeroElementi(),nuovaLinea);
+    if(!modello->trovaDuplicato(nuovaLinea->getTag())) modello->inserisciElemento(modello->rowCount(QModelIndex()),nuovaLinea);
 }
 
 void MainKalk::elimina(){
@@ -87,8 +89,10 @@ void MainKalk::cambiaTag(){
     QModelIndexList posizione1=listaElementi1->selectionModel()->selectedIndexes();
     if(!posizione1.isEmpty()){
         QString text = QInputDialog::getText(this,tr("Inserisci tag"),tr("Inserisci tag"));
-        modello->ritornaElemento(posizione1[0].row())->setTag(text);
-        modello->aggiorna(posizione1[0]);
+        if(!modello->trovaDuplicato(text)){
+            modello->ritornaElemento(posizione1[0].row())->setTag(text);
+            modello->dataChanged(posizione1[0], posizione1[0]);
+        }
     }
 
 }
@@ -97,7 +101,8 @@ void MainKalk::simmetriaO(){
     QModelIndexList posizione1=listaElementi1->selectionModel()->selectedIndexes();
     if(!posizione1.isEmpty()){
         QString text = QInputDialog::getText(this,tr("Inserisci tag"),tr("Inserisci tag"));
-        modello->inserisciElemento(modello->numeroElementi(),modello->ritornaElemento(posizione1[0].row())->simmetricoO(text));
+        if(!modello->trovaDuplicato(text))
+        modello->inserisciElemento(modello->rowCount(QModelIndex()),modello->ritornaElemento(posizione1[0].row())->simmetricoO(text));
     }
 
 }
@@ -106,7 +111,8 @@ void MainKalk::simmetriaX(){
     QModelIndexList posizione1=listaElementi1->selectionModel()->selectedIndexes();
     if(!posizione1.isEmpty()){
         QString text = QInputDialog::getText(this,tr("Inserisci tag"),tr("Inserisci tag"));
-        modello->inserisciElemento(modello->numeroElementi(),modello->ritornaElemento(posizione1[0].row())->simmetricoX(text));
+        if(!modello->trovaDuplicato(text))
+        modello->inserisciElemento(modello->rowCount(QModelIndex()),modello->ritornaElemento(posizione1[0].row())->simmetricoX(text));
     }
 
 }
@@ -115,7 +121,8 @@ void MainKalk::simmetriaY(){
     QModelIndexList posizione1=listaElementi1->selectionModel()->selectedIndexes();
     if(!posizione1.isEmpty()){
         QString text = QInputDialog::getText(this,tr("Inserisci tag"),tr("Inserisci tag"));
-        modello->inserisciElemento(modello->numeroElementi(),modello->ritornaElemento(posizione1[0].row())->simmetricoY(text));
+        if(!modello->trovaDuplicato(text))
+        modello->inserisciElemento(modello->rowCount(QModelIndex()),modello->ritornaElemento(posizione1[0].row())->simmetricoY(text));
     }
 
 }
@@ -123,8 +130,13 @@ void MainKalk::simmetriaY(){
 void MainKalk::traslazione(){
     QModelIndexList posizione1=listaElementi1->selectionModel()->selectedIndexes();
     if(!posizione1.isEmpty()){
-        QString text = QInputDialog::getText(this,tr("Inserisci tag"),tr("Inserisci tag"));
-        modello->inserisciElemento(modello->numeroElementi(),modello->ritornaElemento(posizione1[0].row())->simmetricoY(text));
+        double nuovoX = QInputDialog::getDouble(this,tr("Inserisci x"),tr("Inserisci x"));
+        double nuovoY = QInputDialog::getDouble(this,tr("Inserisci y"),tr("Inserisci y"));
+        modello->ritornaElemento(posizione1[0].row())->traslazione(nuovoX,nuovoY);
+        modello->traslaComponenti(modello->ritornaElemento(posizione1[0].row())->getTag(),nuovoX,nuovoY);
+        modello->dataChanged(posizione1[0], posizione1[0]);
     }
 
 }
+
+

@@ -16,6 +16,7 @@
 class MainKalk : public QWidget
 {
     Q_OBJECT
+
 public:
     explicit MainKalk(QWidget *parent = 0);
 

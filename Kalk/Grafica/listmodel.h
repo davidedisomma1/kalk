@@ -2,6 +2,7 @@
 #define LISTMODEL_H
 
 #include "Logica/punto.h"
+#include "Logica/linea.h"
 #include <QAbstractListModel>
 #include <QList>
 
@@ -17,8 +18,8 @@ public:
 
     void inserisciElemento(int,Tag*);
     Tag* ritornaElemento(int)const;
-    int numeroElementi()const;
-    void aggiorna(const QModelIndex &index);
+    bool trovaDuplicato(QString)const;
+    void traslaComponenti(QString,double,double);
 private:
     QList<Tag*> listaElementi;
 };

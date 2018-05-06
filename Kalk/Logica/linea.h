@@ -13,8 +13,12 @@ public:
     Linea(QString="A",double=0,double=0,QString="B",double=0,double=0);
 
     QString output()const;
+    virtual const Punto* trovaElemento(QString)const;
     void setInizio(const Punto&);
     void setFine(const Punto&);
+    QString getInizioTag()const;
+    QString getFineTag()const;
+   //     bool operator==(const Punto&)const;
     Tag* operator+(const Tag&) const;
 
     Linea* simmetricoX(QString)const;
