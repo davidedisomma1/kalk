@@ -36,15 +36,15 @@ Tag* Linea::operator+(const Tag& t)const{
 }
 
 Linea* Linea::simmetricoX(QString etichetta)const{
-
+    return new Linea(etichetta,inizio.x(),-inizio.y(),"",fine.x(),-fine.y());
 }
 
 Linea* Linea::simmetricoY(QString etichetta)const{
-
+    return new Linea(etichetta,-inizio.x(),inizio.y(),"",-fine.x(),fine.y());
 }
 
 Linea* Linea::simmetricoO(QString etichetta)const{
-
+    return new Linea(etichetta,-inizio.x(),-inizio.y(),"",-fine.x(),-fine.y());
 }
 
 void Linea::traslazione(double nX,double nY){

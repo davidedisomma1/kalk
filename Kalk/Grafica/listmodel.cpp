@@ -70,7 +70,7 @@ void listModel::traslaComponenti(Tag* o,QString s,double nX,double nY){
             }
         }
     }
-    if(dynamic_cast<Linea*>(o)){
+    if(typeid(*o)==typeid(Linea)){
     for(auto it=listaElementi.constBegin();it!=listaElementi.constEnd();++it){
         if((*it)->getTag()==(static_cast<Linea*>(o)->getFineTag()))
             (const_cast<Tag*>(*it))->traslazione(nX,nY);

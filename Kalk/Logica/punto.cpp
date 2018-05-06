@@ -19,7 +19,7 @@ double Punto::distanzaO()const{
     return (qSqrt(qPow(x(),2)+qPow(y(),2)));
 }
 
-Tag* Punto::operator+(const Tag &b) const{
+Tag* Punto::operator+(const Tag& b) const{
     if(dynamic_cast<Punto*>(&(const_cast<Tag&>(b))))
     return new Linea(*this, static_cast<Punto&>((const_cast<Tag&>(b))));
 }

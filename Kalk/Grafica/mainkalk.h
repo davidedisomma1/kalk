@@ -32,6 +32,7 @@ public:
     QPushButton* buttonSimmetricoY;
     QPushButton* buttonSimmetricoO;
     QPushButton* buttonTraslazione;
+    QPushButton* buttonAddizione;
     QGridLayout* layoutGriglia;
     QGridLayout* layoutButton;
     listModel* modello;
@@ -45,6 +46,7 @@ public slots:
     void simmetriaY();
     void simmetriaO();
     void traslazione();
+    void addizione();
 signals:
 };
 

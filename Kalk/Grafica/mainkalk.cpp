@@ -15,6 +15,7 @@ MainKalk::MainKalk(QWidget *parent) : QWidget(parent),modello(new listModel()),w
         buttonSimmetricoY=new QPushButton("Simmetrico Y",this);
         buttonSimmetricoO=new QPushButton("Simmetrico Origine",this);
         buttonTraslazione=new QPushButton("Traslazione",this);
+        buttonAddizione=new QPushButton("+",this);
 
         layoutGriglia=new QGridLayout(this);
         layoutButton=new QGridLayout();
@@ -34,6 +35,7 @@ MainKalk::MainKalk(QWidget *parent) : QWidget(parent),modello(new listModel()),w
         layoutButton->addWidget(buttonSimmetricoX,5,0);
         layoutButton->addWidget(buttonSimmetricoY,6,0);
         layoutButton->addWidget(buttonTraslazione,7,0);
+        layoutButton->addWidget(buttonAddizione,8,0);
         layoutGriglia->addItem(layoutButton,0,1);
 
         QObject::connect(buttonCreaPunto,SIGNAL(released()),this,SLOT(creaPunto()));
@@ -44,6 +46,7 @@ MainKalk::MainKalk(QWidget *parent) : QWidget(parent),modello(new listModel()),w
         QObject::connect(buttonSimmetricoX,SIGNAL(released()),this,SLOT(simmetriaX()));
         QObject::connect(buttonSimmetricoY,SIGNAL(released()),this,SLOT(simmetriaY()));
         QObject::connect(buttonTraslazione,SIGNAL(released()),this,SLOT(traslazione()));
+        QObject::connect(buttonAddizione,SIGNAL(released()),this,SLOT(addizione()));
 }
 
 void MainKalk::creaPunto(){
@@ -136,7 +139,11 @@ void MainKalk::traslazione(){
         modello->traslaComponenti(modello->ritornaElemento(posizione1[0].row()),modello->ritornaElemento(posizione1[0].row())->getTag(),nuovoX,nuovoY);
         modello->dataChanged(posizione1[0], posizione1[0]);
     }
-
 }
 
+void MainKalk::addizione(){
+    QModelIndexList posizione1=listaElementi1->selectionModel()->selectedIndexes();
+    QModelIndexList posizione2=listaElementi2->selectionModel()->selectedIndexes();
+    modello->inserisciElemento(modello->rowCount(QModelIndex()),*(modello->ritornaElemento(posizione1[0].row()))+ *(modello->ritornaElemento(posizione2[0].row())));
+}
 
