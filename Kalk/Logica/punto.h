@@ -31,7 +31,6 @@ public:
     Punto* simmetricoO(QString)const;
     void traslazione(double,double);
 
-    Linea* joinOrigine()const;
     double distanzaO()const;
     double distanzaP(const Punto&)const; //da fare
 };

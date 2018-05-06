@@ -52,9 +52,6 @@ void Punto::traslazione(double nX,double nY){
     Y=Y+nY;
 }
 
-Linea* Punto::joinOrigine()const{
-    return new Linea(*this,origine);
-}
 
 QString Punto::output()const{
     QString stringaOut;

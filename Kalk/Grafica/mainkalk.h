@@ -33,6 +33,7 @@ public:
     QPushButton* buttonSimmetricoO;
     QPushButton* buttonTraslazione;
     QPushButton* buttonAddizione;
+    QPushButton* buttonDistanzaO;
     QGridLayout* layoutGriglia;
     QGridLayout* layoutButton;
     listModel* modello;
@@ -47,6 +48,7 @@ public slots:
     void simmetriaO();
     void traslazione();
     void addizione();
+    void distanzaO();
 signals:
 };
 

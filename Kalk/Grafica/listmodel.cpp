@@ -1,7 +1,9 @@
 #include "listmodel.h"
 #include <typeinfo>
 
-listModel::listModel(QObject *parent): QAbstractListModel(parent){}
+listModel::listModel(QObject *parent): QAbstractListModel(parent){
+    listaElementi.push_back(&Punto::origine);
+}
 
 int listModel::rowCount(const QModelIndex & parent = QModelIndex() ) const
 {

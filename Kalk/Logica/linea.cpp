@@ -32,7 +32,6 @@ const Punto* Linea::trovaElemento(QString s)const{
 }
 
 Tag* Linea::operator+(const Tag& t)const{
-
 }
 
 Linea* Linea::simmetricoX(QString etichetta)const{
