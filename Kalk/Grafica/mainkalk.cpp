@@ -133,7 +133,7 @@ void MainKalk::traslazione(){
         double nuovoX = QInputDialog::getDouble(this,tr("Inserisci x"),tr("Inserisci x"));
         double nuovoY = QInputDialog::getDouble(this,tr("Inserisci y"),tr("Inserisci y"));
         modello->ritornaElemento(posizione1[0].row())->traslazione(nuovoX,nuovoY);
-        modello->traslaComponenti(modello->ritornaElemento(posizione1[0].row())->getTag(),nuovoX,nuovoY);
+        modello->traslaComponenti(modello->ritornaElemento(posizione1[0].row()),modello->ritornaElemento(posizione1[0].row())->getTag(),nuovoX,nuovoY);
         modello->dataChanged(posizione1[0], posizione1[0]);
     }
 

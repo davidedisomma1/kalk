@@ -19,7 +19,7 @@ public:
     void inserisciElemento(int,Tag*);
     Tag* ritornaElemento(int)const;
     bool trovaDuplicato(QString)const;
-    void traslaComponenti(QString,double,double);
+    void traslaComponenti(Tag*,QString,double,double);
 private:
     QList<Tag*> listaElementi;
 };

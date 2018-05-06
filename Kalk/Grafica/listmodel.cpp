@@ -61,7 +61,7 @@ bool listModel::trovaDuplicato(QString s)const{
     return false;
 }
 
-void listModel::traslaComponenti(QString s,double nX,double nY){
+void listModel::traslaComponenti(Tag* o,QString s,double nX,double nY){
     for(auto it=listaElementi.constBegin();it!=listaElementi.constEnd();++it){
         if(dynamic_cast<Linea*>(*it)){
             const Tag* t=(static_cast<const Linea*>(*it))->trovaElemento(s);
@@ -69,5 +69,13 @@ void listModel::traslaComponenti(QString s,double nX,double nY){
                 (const_cast<Tag*>(t))->traslazione(nX,nY);
             }
         }
+    }
+    if(dynamic_cast<Linea*>(o)){
+    for(auto it=listaElementi.constBegin();it!=listaElementi.constEnd();++it){
+        if((*it)->getTag()==(static_cast<Linea*>(o)->getFineTag()))
+            (const_cast<Tag*>(*it))->traslazione(nX,nY);
+        if((*it)->getTag()==(static_cast<Linea*>(o)->getInizioTag()))
+            (const_cast<Tag*>(*it))->traslazione(nX,nY);
+    }
     }
 }
