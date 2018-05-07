@@ -25,7 +25,7 @@ QString Linea::output()const{
             QString::number(inizio.y())+"),("+QString::number(fine.x())+","+QString::number(fine.y())+")";
 }
 
-const Punto* Linea::trovaElemento(QString s)const{
+const Tag* Linea::trovaElemento(QString s)const{
     if(inizio.getTag()==s) return &inizio;
     if(fine.getTag()==s) return &fine;
     return 0;

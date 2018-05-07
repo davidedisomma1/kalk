@@ -7,7 +7,7 @@ private:
     QString tag;
 public:
     Tag(QString="A");
-    virtual ~Tag()=0;
+    virtual ~Tag();
 
     virtual Tag* operator+(const Tag&) const=0;
     bool operator==(const Tag&)const;

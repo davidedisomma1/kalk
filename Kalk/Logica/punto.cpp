@@ -24,8 +24,8 @@ double Punto::distanzaP(const Punto& p)const{
 }
 
 Tag* Punto::operator+(const Tag& b) const{
-    if(dynamic_cast<Punto*>(&(const_cast<Tag&>(b))))
-    return new Linea(*this, static_cast<Punto&>((const_cast<Tag&>(b))));
+    if(dynamic_cast<const Punto*>(&((b))))
+    return new Linea(*this, static_cast<const Punto&>((b)));
 }
 
 
