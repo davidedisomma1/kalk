@@ -18,6 +18,8 @@ MainKalk::MainKalk(QWidget *parent) : QWidget(parent),modello(new listModel()),w
         buttonTraslazione=new QPushButton("Traslazione",this);
         buttonAddizione=new QPushButton("+",this);
         buttonDistanzaO=new QPushButton("Distanza Origine",this);
+        buttonDistanzaP=new QPushButton("Distanza Punto",this);
+        buttonLunghezza=new QPushButton("Lunghezza",this);
 
         layoutGriglia=new QGridLayout(this);
         layoutButton=new QGridLayout();
@@ -39,6 +41,8 @@ MainKalk::MainKalk(QWidget *parent) : QWidget(parent),modello(new listModel()),w
         layoutButton->addWidget(buttonTraslazione,7,0);
         layoutButton->addWidget(buttonAddizione,8,0);
         layoutButton->addWidget(buttonDistanzaO,9,0);
+        layoutButton->addWidget(buttonDistanzaP,10,0);
+        layoutButton->addWidget(buttonLunghezza,11,0);
         layoutGriglia->addItem(layoutButton,0,1);
 
         QObject::connect(buttonCreaPunto,SIGNAL(released()),this,SLOT(creaPunto()));
@@ -51,6 +55,8 @@ MainKalk::MainKalk(QWidget *parent) : QWidget(parent),modello(new listModel()),w
         QObject::connect(buttonTraslazione,SIGNAL(released()),this,SLOT(traslazione()));
         QObject::connect(buttonAddizione,SIGNAL(released()),this,SLOT(addizione()));
         QObject::connect(buttonDistanzaO,SIGNAL(released()),this,SLOT(distanzaO()));
+        QObject::connect(buttonDistanzaP,SIGNAL(released()),this,SLOT(distanzaP()));
+        QObject::connect(buttonLunghezza,SIGNAL(released()),this,SLOT(lunghezza()));
 }
 
 void MainKalk::creaPunto(){
@@ -156,6 +162,26 @@ void MainKalk::distanzaO(){
     if(dynamic_cast<Punto*>(modello->ritornaElemento(posizione1[0].row()))){
         QMessageBox msgBox;
         msgBox.setText(QString::number(static_cast<Punto*>(modello->ritornaElemento(posizione1[0].row()))->distanzaO()));
+        msgBox.exec();
+    }
+}
+
+void MainKalk::distanzaP(){
+    QModelIndexList posizione1=listaElementi1->selectionModel()->selectedIndexes();
+    QModelIndexList posizione2=listaElementi2->selectionModel()->selectedIndexes();
+    if(dynamic_cast<Punto*>(modello->ritornaElemento(posizione1[0].row())) && dynamic_cast<Punto*>(modello->ritornaElemento(posizione2[0].row()))){
+        QMessageBox msgBox;
+        msgBox.setText(QString::number(static_cast<Punto*>(modello->ritornaElemento(posizione1[0].row()))
+                       ->distanzaP(*static_cast<Punto*>(modello->ritornaElemento(posizione2[0].row())))));
+        msgBox.exec();
+    }
+}
+
+void MainKalk::lunghezza(){
+    QModelIndexList posizione1=listaElementi1->selectionModel()->selectedIndexes();
+    if(dynamic_cast<Linea*>(modello->ritornaElemento(posizione1[0].row()))){
+        QMessageBox msgBox;
+        msgBox.setText(QString::number(static_cast<Linea*>(modello->ritornaElemento(posizione1[0].row()))->lunghezza()));
         msgBox.exec();
     }
 }

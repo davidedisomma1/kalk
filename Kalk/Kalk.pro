@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     Grafica/listmodel.cpp\
     Logica/tag.cpp \
     Logica/linea.cpp \
-    Grafica/inputpunto.cpp
+    Grafica/inputpunto.cpp \
+    Logica/spezzata.cpp
 
 HEADERS  += Logica/punto.h \
     Grafica/mainwindow.h \
@@ -28,6 +29,7 @@ HEADERS  += Logica/punto.h \
     Grafica/listmodel.h \
     Logica/tag.h \
     Logica/linea.h \
-    Grafica/inputpunto.h
+    Grafica/inputpunto.h \
+    Logica/spezzata.h
 
 FORMS    += Grafica/mainwindow.ui

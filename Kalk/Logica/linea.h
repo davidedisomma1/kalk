@@ -11,6 +11,7 @@ private:
 public:
     Linea(const Punto&,const Punto&);
     Linea(QString="A",double=0,double=0,QString="B",double=0,double=0);
+    Linea(const Linea&)=default;
 
     QString output()const;
     virtual const Punto* trovaElemento(QString)const;
@@ -29,6 +30,7 @@ public:
     Punto* puntoMedio()const;
     Spezzata* connect(const Linea&)const;
     Linea* prodottoVettoriale(const Linea&)const;
+    virtual double lunghezza()const;
 
 };
 

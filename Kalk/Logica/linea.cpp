@@ -50,3 +50,7 @@ void Linea::traslazione(double nX,double nY){
     inizio.traslazione(nX,nY);
     fine.traslazione(nX,nY);
 }
+
+double Linea::lunghezza()const{
+    return inizio.distanzaP(fine);
+}

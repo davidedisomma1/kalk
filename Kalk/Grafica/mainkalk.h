@@ -34,6 +34,8 @@ public:
     QPushButton* buttonTraslazione;
     QPushButton* buttonAddizione;
     QPushButton* buttonDistanzaO;
+    QPushButton* buttonDistanzaP;
+    QPushButton* buttonLunghezza;
     QGridLayout* layoutGriglia;
     QGridLayout* layoutButton;
     listModel* modello;
@@ -49,6 +51,8 @@ public slots:
     void traslazione();
     void addizione();
     void distanzaO();
+    void distanzaP();
+    void lunghezza();
 signals:
 };
 

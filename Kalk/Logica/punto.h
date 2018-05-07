@@ -32,7 +32,7 @@ public:
     void traslazione(double,double);
 
     double distanzaO()const;
-    double distanzaP(const Punto&)const; //da fare
+    double distanzaP(const Punto&)const;
 };
 Q_DECLARE_METATYPE(Punto*)
 
