@@ -17,6 +17,8 @@ public:
     virtual const Tag* trovaElemento(QString)const;
     void setInizio(const Punto&);
     void setFine(const Punto&);
+    Punto getInizio()const;
+    Punto getFine()const;
     QString getInizioTag()const;
     QString getFineTag()const;
    //     bool operator==(const Punto&)const;
@@ -27,9 +29,9 @@ public:
     Linea* simmetricoO(QString)const;
     void traslazione(double,double);
 
-    Punto* puntoMedio()const;
+    Punto* puntoMedio(QString)const;
     Spezzata* connect(const Linea&)const;
-    Linea* prodottoVettoriale(const Linea&)const;
+    Linea* sommaVettoriale(const Linea&)const;
     virtual double lunghezza()const;
 
 };

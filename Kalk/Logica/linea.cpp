@@ -19,6 +19,14 @@ QString Linea::getFineTag()const{
     return fine.getTag();
 }
 
+Punto Linea::getInizio()const{
+    return inizio;
+}
+
+Punto Linea::getFine() const{
+    return fine;
+}
+
 QString Linea::output()const{
     QString stringaOut;
     return stringaOut+Tag::getTag()+" ("+QString::number(inizio.x())+","+
@@ -47,10 +55,21 @@ Linea* Linea::simmetricoO(QString etichetta)const{
 }
 
 void Linea::traslazione(double nX,double nY){
-    inizio.traslazione(nX,nY);
-    fine.traslazione(nX,nY);
+    inizio.Punto::traslazione(nX,nY);
+    fine.Punto::traslazione(nX,nY);
 }
 
 double Linea::lunghezza()const{
     return inizio.distanzaP(fine);
+}
+
+Punto* Linea::puntoMedio(QString etichetta)const{
+    return new Punto(etichetta,((inizio.x()+fine.x())/2),((inizio.y()+fine.y())/2));
+}
+
+Linea* Linea::sommaVettoriale(const Linea& l)const{
+    Linea vettoreUno(*this);
+    Linea vettoreDue(l);
+    vettoreUno.traslazione(vettoreDue.getInizio().x()-vettoreUno.getInizio().x(),vettoreDue.getFine().y()-vettoreUno.getInizio().y());
+    return new Linea(vettoreDue.getInizio(),vettoreUno.getFine());
 }
