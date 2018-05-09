@@ -69,7 +69,6 @@ Punto* Linea::puntoMedio(QString etichetta)const{
 
 Linea* Linea::sommaVettoriale(const Linea& l)const{
     Linea vettoreUno(*this);
-    Linea vettoreDue(l);
-    vettoreUno.traslazione(vettoreDue.getInizio().x()-vettoreUno.getInizio().x(),vettoreDue.getFine().y()-vettoreUno.getInizio().y());
-    return new Linea(vettoreDue.getInizio(),vettoreUno.getFine());
+    vettoreUno.traslazione(l.getInizio().x()-vettoreUno.getInizio().x(),l.getFine().y()-vettoreUno.getInizio().y());
+    return new Linea(l.getInizio(),vettoreUno.getFine());
 }
