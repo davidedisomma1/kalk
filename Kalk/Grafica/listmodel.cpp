@@ -63,6 +63,10 @@ bool listModel::trovaDuplicato(QString s)const{
     return false;
 }
 
+void listModel::aggiorna(const QModelIndex& i){
+    dataChanged(i, i);
+}
+
 void listModel::traslaComponenti(Tag* o,QString s,double nX,double nY){
     for(auto it=listaElementi.constBegin();it!=listaElementi.constEnd();++it){
         if(dynamic_cast<Linea*>(*it)){

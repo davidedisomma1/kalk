@@ -104,7 +104,7 @@ void MainKalk::cambiaTag(){
         QString text = QInputDialog::getText(this,tr("Inserisci tag"),tr("Inserisci tag"));
         if(!modello->trovaDuplicato(text)){
             modello->ritornaElemento(posizione1[0].row())->setTag(text);
-            modello->dataChanged(posizione1[0], posizione1[0]);
+            modello->aggiorna(posizione1[0]);
         }
     }
 
@@ -147,7 +147,7 @@ void MainKalk::traslazione(){
         double nuovoY = QInputDialog::getDouble(this,tr("Inserisci y"),tr("Inserisci y"));
         modello->ritornaElemento(posizione1[0].row())->traslazione(nuovoX,nuovoY);
         modello->traslaComponenti(modello->ritornaElemento(posizione1[0].row()),modello->ritornaElemento(posizione1[0].row())->getTag(),nuovoX,nuovoY);
-        modello->dataChanged(posizione1[0], posizione1[0]);
+        modello->aggiorna(posizione1[0]);
     }
 }
 
