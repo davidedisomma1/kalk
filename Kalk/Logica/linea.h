@@ -17,8 +17,8 @@ public:
     virtual const Tag* trovaElemento(QString)const;
     void setInizio(const Punto&);
     void setFine(const Punto&);
-    Punto getInizio()const;
-    Punto getFine()const;
+    const Punto& getInizio()const;
+    const Punto& getFine()const;
     QString getInizioTag()const;
     QString getFineTag()const;
    //     bool operator==(const Punto&)const;

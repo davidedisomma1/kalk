@@ -12,6 +12,7 @@ public:
     const Tag* trovaElemento(QString)const;
 
     Tag* operator+(const Tag&) const;
+    void aggiungiPunto(const Punto&);
 
     virtual QString output()const;
 

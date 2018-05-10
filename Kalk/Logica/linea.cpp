@@ -1,4 +1,5 @@
 #include "linea.h"
+#include "spezzata.h"
 
 Linea::Linea(const Punto& a,const Punto& b):Tag(a.getTag() += b.getTag()),inizio(a),fine(b){}
 
@@ -19,27 +20,32 @@ QString Linea::getFineTag()const{
     return fine.getTag();
 }
 
-Punto Linea::getInizio()const{
+const Punto& Linea::getInizio()const{
     return inizio;
 }
 
-Punto Linea::getFine() const{
+const Punto& Linea::getFine() const{
     return fine;
 }
 
 QString Linea::output()const{
     QString stringaOut;
-    return stringaOut+Tag::getTag()+" ("+QString::number(inizio.x())+","+
+    return stringaOut+getTag()+" ("+QString::number(inizio.x())+","+
             QString::number(inizio.y())+"),("+QString::number(fine.x())+","+QString::number(fine.y())+")";
 }
 
 const Tag* Linea::trovaElemento(QString s)const{
-    if(inizio.getTag()==s) return &inizio;
-    if(fine.getTag()==s) return &fine;
+    if(getInizioTag()==s) return &inizio;
+    if(getFineTag()==s) return &fine;
     return 0;
 }
 
 Tag* Linea::operator+(const Tag& t)const{
+    if(dynamic_cast<const Punto*>(&(t))){
+    Spezzata* s=new Spezzata(getInizio(), static_cast<const Punto&>(t));
+    s->aggiungiPunto(getFine());
+    return s;
+    }
 }
 
 Linea* Linea::simmetricoX(QString etichetta)const{
