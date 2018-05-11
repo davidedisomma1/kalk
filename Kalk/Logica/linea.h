@@ -30,7 +30,7 @@ public:
     void traslazione(double,double);
 
     Punto* puntoMedio(QString)const;
-    Spezzata* connect(const Linea&)const;
+ //   Spezzata* connect(const Linea&)const;
     Linea* sommaVettoriale(const Linea&)const;
     virtual double lunghezza()const;
 
