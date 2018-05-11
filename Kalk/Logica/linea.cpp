@@ -1,5 +1,6 @@
 #include "linea.h"
 #include "spezzata.h"
+#include <typeinfo>
 
 Linea::Linea(const Punto& a,const Punto& b):Tag(a.getTag() += b.getTag()),inizio(a),fine(b){}
 
@@ -44,6 +45,12 @@ Tag* Linea::operator+(const Tag& t)const{
     if(dynamic_cast<const Punto*>(&(t))){
     Spezzata* s=new Spezzata(getInizio(), static_cast<const Punto&>(t));
     s->aggiungiPunto(getFine());
+    return s;
+    }
+    if(typeid(Linea)==typeid(t)){
+    Spezzata* s=new Spezzata(getInizio(), static_cast<const Linea&>(t).getFine());
+    s->aggiungiPunto(getFine());
+    s->aggiungiPunto(static_cast<const Linea&>(t).getInizio());
     return s;
     }
 }

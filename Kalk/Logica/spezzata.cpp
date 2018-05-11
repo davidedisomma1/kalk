@@ -1,4 +1,5 @@
 #include "spezzata.h"
+#include <typeinfo>
 
 Spezzata::Spezzata(const Punto& inizio,const Punto& fine):Linea(inizio,fine),punti(){}
 
@@ -11,7 +12,31 @@ const Tag* Spezzata::trovaElemento(QString t)const{
     return 0;
 }
 
-Tag* Spezzata::operator+(const Tag&) const{}
+Tag* Spezzata::operator+(const Tag& t) const{
+    if(dynamic_cast<const Punto*>(&(t))){
+        Spezzata* s=new Spezzata(*this);
+        s->aggiungiPunto(s->getFine());
+        s->setFine(static_cast<const Punto&>(t));
+        return s;
+    }
+    if(typeid(Linea)==typeid(t)){
+        Spezzata* s=new Spezzata(*this);
+        s->aggiungiPunto(getFine());
+        s->aggiungiPunto(static_cast<const Linea&>(t).getInizio());
+        s->setFine(static_cast<const Linea&>(t).getFine());
+        return s;
+    }
+    if(typeid(Spezzata)==typeid(t)){
+        Spezzata* s=new Spezzata(*this);
+        s->aggiungiPunto(getFine());
+        s->setFine(static_cast<const Linea&>(t).getFine());
+        s->aggiungiPunto(static_cast<const Linea&>(t).getInizio());
+        for(auto cit=punti.constBegin();cit!=punti.constEnd();++cit){
+            s->aggiungiPunto(*cit);
+        }
+        return s;
+    }
+}
 
 QString Spezzata::output()const{
     QString stringaTag,stringaCoord;

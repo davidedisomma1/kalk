@@ -8,6 +8,7 @@ private:
     QList<Punto> punti;
 public:
     Spezzata(const Punto&,const Punto&);
+    Spezzata(const Spezzata&)=default;
 
     const Tag* trovaElemento(QString)const;
 
