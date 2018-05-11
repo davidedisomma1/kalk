@@ -1,5 +1,6 @@
 #include "mainkalk.h"
 #include "inputpunto.h"
+#include <typeinfo>
 #include <QMessageBox>
 
 
@@ -20,6 +21,8 @@ MainKalk::MainKalk(QWidget *parent) : QWidget(parent),modello(new listModel()),w
         buttonDistanzaO=new QPushButton("Distanza Origine",this);
         buttonDistanzaP=new QPushButton("Distanza Punto",this);
         buttonLunghezza=new QPushButton("Lunghezza",this);
+        buttonPuntoMedio=new QPushButton("Punto Medio",this);
+        buttonSommaVettoriale=new QPushButton("Somma Vettoriale",this);
 
         layoutGriglia=new QGridLayout(this);
         layoutButton=new QGridLayout();
@@ -43,6 +46,8 @@ MainKalk::MainKalk(QWidget *parent) : QWidget(parent),modello(new listModel()),w
         layoutButton->addWidget(buttonDistanzaO,9,0);
         layoutButton->addWidget(buttonDistanzaP,10,0);
         layoutButton->addWidget(buttonLunghezza,11,0);
+        layoutButton->addWidget(buttonPuntoMedio,12,0);
+        layoutButton->addWidget(buttonSommaVettoriale,13,0);
         layoutGriglia->addItem(layoutButton,0,1);
 
         QObject::connect(buttonCreaPunto,SIGNAL(released()),this,SLOT(creaPunto()));
@@ -57,6 +62,8 @@ MainKalk::MainKalk(QWidget *parent) : QWidget(parent),modello(new listModel()),w
         QObject::connect(buttonDistanzaO,SIGNAL(released()),this,SLOT(distanzaO()));
         QObject::connect(buttonDistanzaP,SIGNAL(released()),this,SLOT(distanzaP()));
         QObject::connect(buttonLunghezza,SIGNAL(released()),this,SLOT(lunghezza()));
+        QObject::connect(buttonPuntoMedio,SIGNAL(released()),this,SLOT(puntoMedio()));
+        QObject::connect(buttonSommaVettoriale,SIGNAL(released()),this,SLOT(sommaVettoriale()));
 }
 
 void MainKalk::creaPunto(){
@@ -183,5 +190,25 @@ void MainKalk::lunghezza(){
         QMessageBox msgBox;
         msgBox.setText(QString::number(static_cast<Linea*>(modello->ritornaElemento(posizione1[0].row()))->lunghezza()));
         msgBox.exec();
+    }
+}
+
+void MainKalk::puntoMedio(){
+     QModelIndexList posizione1=listaElementi1->selectionModel()->selectedIndexes();
+     if(typeid(*(modello->ritornaElemento(posizione1[0].row())))==typeid(Linea)){
+     QString text = QInputDialog::getText(this,tr("Inserisci tag"),tr("Inserisci tag"));
+     if(!modello->trovaDuplicato(text))
+     modello->inserisciElemento(modello->rowCount(QModelIndex()),static_cast<Linea*>(modello->ritornaElemento(posizione1[0].row()))->puntoMedio(text));
+     }
+}
+
+
+void MainKalk::sommaVettoriale(){
+    QModelIndexList posizione1=listaElementi1->selectionModel()->selectedIndexes();
+    QModelIndexList posizione2=listaElementi2->selectionModel()->selectedIndexes();
+    if(typeid(Linea)==typeid(*(modello->ritornaElemento(posizione1[0].row()))) &&
+           typeid(Linea)==typeid(*(modello->ritornaElemento(posizione2[0].row())))){
+    modello->inserisciElemento(modello->rowCount(QModelIndex()),static_cast<Linea*>(modello->ritornaElemento(posizione1[0].row()))
+           ->sommaVettoriale((*static_cast<Linea*>((modello->ritornaElemento(posizione2[0].row()))))));
     }
 }

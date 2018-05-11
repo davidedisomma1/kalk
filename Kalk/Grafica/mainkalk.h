@@ -36,6 +36,8 @@ public:
     QPushButton* buttonDistanzaO;
     QPushButton* buttonDistanzaP;
     QPushButton* buttonLunghezza;
+    QPushButton* buttonPuntoMedio;
+    QPushButton* buttonSommaVettoriale;
     QGridLayout* layoutGriglia;
     QGridLayout* layoutButton;
     listModel* modello;
@@ -53,6 +55,8 @@ public slots:
     void distanzaO();
     void distanzaP();
     void lunghezza();
+    void puntoMedio();
+    void sommaVettoriale();
 signals:
 };
 
