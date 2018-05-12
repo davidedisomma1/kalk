@@ -16,22 +16,20 @@ TEMPLATE = app
 SOURCES += main.cpp\
     Logica/punto.cpp \
     Grafica/mainwindow.cpp \
-    Grafica/mainkalk.cpp \
     Grafica/listmodel.cpp\
     Logica/tag.cpp \
     Logica/linea.cpp \
     Grafica/inputpunto.cpp \
     Logica/spezzata.cpp \
-    Logica/rettangolo.cpp
+    Grafica/dialog.cpp
 
 HEADERS  += Logica/punto.h \
     Grafica/mainwindow.h \
-    Grafica/mainkalk.h \
     Grafica/listmodel.h \
     Logica/tag.h \
     Logica/linea.h \
     Grafica/inputpunto.h \
     Logica/spezzata.h \
-    Logica/rettangolo.h
+    Grafica/dialog.h
 
 FORMS    += Grafica/mainwindow.ui
