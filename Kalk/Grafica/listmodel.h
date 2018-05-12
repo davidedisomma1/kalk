@@ -3,6 +3,7 @@
 
 #include "Logica/punto.h"
 #include "Logica/linea.h"
+#include "Logica/spezzata.h"
 #include <QAbstractListModel>
 #include <QList>
 
@@ -19,7 +20,7 @@ public:
     void inserisciElemento(int,Tag*);
     Tag* ritornaElemento(int)const;
     bool trovaDuplicato(QString)const;
-    void traslaComponenti(Tag*,QString,double,double);
+    void traslaComponenti(Tag*, double, double);
     void aggiorna(const QModelIndex&);
 private:
     QList<Tag*> listaElementi;

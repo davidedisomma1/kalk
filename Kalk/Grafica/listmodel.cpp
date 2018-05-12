@@ -67,21 +67,26 @@ void listModel::aggiorna(const QModelIndex& i){
     dataChanged(i, i);
 }
 
-void listModel::traslaComponenti(Tag* o,QString s,double nX,double nY){
-    for(auto it=listaElementi.constBegin();it!=listaElementi.constEnd();++it){
-        if(dynamic_cast<Linea*>(*it)){
-            const Tag* t=(static_cast<const Linea*>(*it))->trovaElemento(s);
-            if(t){
-                (const_cast<Tag*>(t))->traslazione(nX,nY);
-            }
-        }
-    }
+void listModel::traslaComponenti(Tag* o,double nX,double nY){
     if(typeid(*o)==typeid(Linea)){
     for(auto it=listaElementi.constBegin();it!=listaElementi.constEnd();++it){
         if((*it)->getTag()==(static_cast<Linea*>(o)->getFineTag()))
             (const_cast<Tag*>(*it))->traslazione(nX,nY);
         if((*it)->getTag()==(static_cast<Linea*>(o)->getInizioTag()))
             (const_cast<Tag*>(*it))->traslazione(nX,nY);
+        }
     }
+    if(dynamic_cast<Spezzata*>(o)){
+    for(auto it=listaElementi.constBegin();it!=listaElementi.constEnd();++it){
+        QString s=(*it)->getTag();
+        if(s==(static_cast<Linea*>(o)->getFineTag()))
+            (const_cast<Tag*>(*it))->traslazione(nX,nY);
+        if(s==(static_cast<Linea*>(o)->getInizioTag()))
+            (const_cast<Tag*>(*it))->traslazione(nX,nY);
+        if(static_cast<Spezzata*>(o)->trovaPunto(s)){
+            (const_cast<Tag*>(*it))->traslazione(nX,nY);
+            }
+        }
+
     }
 }

@@ -14,7 +14,6 @@ public:
     Linea(const Linea&)=default;
 
     QString output()const;
-    virtual const Tag* trovaElemento(QString)const;
     void setInizio(const Punto&);
     void setFine(const Punto&);
     const Punto& getInizio()const;

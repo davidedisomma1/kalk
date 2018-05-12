@@ -3,14 +3,6 @@
 
 Spezzata::Spezzata(const Punto& inizio,const Punto& fine):Linea(inizio,fine),punti(){}
 
-const Tag* Spezzata::trovaElemento(QString t)const{
-    if(getInizioTag()==t) return &getInizio();
-    for(auto cit=punti.constBegin();cit!=punti.constEnd();++cit){
-        if(cit->getTag()==t) return &(*cit);
-    }
-    if(getFineTag()==t) return &getFine();
-    return 0;
-}
 
 Tag* Spezzata::operator+(const Tag& t) const{
     if(dynamic_cast<const Punto*>(&(t))){
@@ -21,7 +13,7 @@ Tag* Spezzata::operator+(const Tag& t) const{
     }
     if(typeid(Linea)==typeid(t)){
         Spezzata* s=new Spezzata(*this);
-        s->aggiungiPunto(getFine());
+        s->aggiungiPunto(s->getFine());
         s->aggiungiPunto(static_cast<const Linea&>(t).getInizio());
         s->setFine(static_cast<const Linea&>(t).getFine());
         return s;
@@ -29,11 +21,11 @@ Tag* Spezzata::operator+(const Tag& t) const{
     if(typeid(Spezzata)==typeid(t)){
         Spezzata* s=new Spezzata(*this);
         s->aggiungiPunto(getFine());
-        s->setFine(static_cast<const Linea&>(t).getFine());
         s->aggiungiPunto(static_cast<const Linea&>(t).getInizio());
-        for(auto cit=punti.constBegin();cit!=punti.constEnd();++cit){
+        for(auto cit=static_cast<const Spezzata&>(t).punti.constBegin();cit!=static_cast<const Spezzata&>(t).punti.constEnd();++cit){
             s->aggiungiPunto(*cit);
         }
+        s->setFine(static_cast<const Linea&>(t).getFine());
         return s;
     }
 }
@@ -50,7 +42,7 @@ QString Spezzata::output()const{
     }
     stringaTag=stringaTag+getFineTag()+" ";
     stringaCoord=stringaCoord+"("+QString::number(getFine().x())+","+QString::number(getFine().y())+")";
-    return stringaTag+stringaCoord;
+    return getTag()+stringaCoord;
 }
 
 Spezzata* Spezzata::simmetricoX(QString etichetta)const{
@@ -97,4 +89,16 @@ double Spezzata::lunghezza()const{
 
 void Spezzata::aggiungiPunto(const Punto& p){
     punti.push_back(p);
+    QString s;
+    for(auto cit=punti.constBegin();cit!=punti.constEnd();++cit){
+        s=s+cit->getTag();
+    }
+    setTag(getInizioTag()+s+getFineTag());
+}
+
+bool Spezzata::trovaPunto(QString s){
+    for(auto cit=punti.constBegin();cit!=punti.constEnd();++cit){
+        if(s==cit->getTag()) return true;
+    }
+    return false;
 }

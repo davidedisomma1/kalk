@@ -10,10 +10,10 @@ public:
     Spezzata(const Punto&,const Punto&);
     Spezzata(const Spezzata&)=default;
 
-    const Tag* trovaElemento(QString)const;
 
     Tag* operator+(const Tag&) const;
     void aggiungiPunto(const Punto&);
+    bool trovaPunto(QString );
 
     virtual QString output()const;
 

@@ -35,11 +35,6 @@ QString Linea::output()const{
             QString::number(inizio.y())+"),("+QString::number(fine.x())+","+QString::number(fine.y())+")";
 }
 
-const Tag* Linea::trovaElemento(QString s)const{
-    if(getInizioTag()==s) return &inizio;
-    if(getFineTag()==s) return &fine;
-    return 0;
-}
 
 Tag* Linea::operator+(const Tag& t)const{
     if(dynamic_cast<const Punto*>(&(t))){
