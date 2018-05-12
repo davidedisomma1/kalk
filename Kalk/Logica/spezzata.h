@@ -15,7 +15,7 @@ public:
     void aggiungiPunto(const Punto&);
     bool trovaPunto(QString );
 
-    virtual QString output()const;
+    QString output()const;
 
     Spezzata* simmetricoX(QString)const;
     Spezzata* simmetricoY(QString)const;
