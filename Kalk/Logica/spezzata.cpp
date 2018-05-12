@@ -97,7 +97,7 @@ double Spezzata::lunghezza()const{
     else{
         somma=somma+getInizio().distanzaP(punti.first());
         for(auto cit=punti.constBegin();cit!=punti.constEnd()-1;++cit){
-            somma=somma+cit->distanzaP(*(++cit));
+            somma=somma+cit->distanzaP(*(cit+1));
         }
         somma=somma+getFine().distanzaP(punti.last());
         return somma;

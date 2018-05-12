@@ -38,7 +38,7 @@ Tag* Punto::operator+(const Tag& t) const{
 
 
 bool Punto::operator==(const Punto& b)const{
-    return ((getTag()==b.getTag())&&(x()==b.x())&&(y()==b.y()));
+    return ((x()==b.x())&&(y()==b.y()));
 }
 
 std::ostream& operator<<(std::ostream& stream,const Punto& p){
