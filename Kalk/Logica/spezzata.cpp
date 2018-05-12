@@ -1,11 +1,12 @@
 #include "spezzata.h"
 #include <typeinfo>
 
+
 Spezzata::Spezzata(const Punto& inizio,const Punto& fine):Linea(inizio,fine),punti(){}
 
 
 Tag* Spezzata::operator+(const Tag& t) const{
-    if(dynamic_cast<const Punto*>(&(t))){
+    if(typeid(Punto)==typeid(t)){
         Spezzata* s=new Spezzata(*this);
         s->aggiungiPunto(s->getFine());
         s->setFine(static_cast<const Punto&>(t));

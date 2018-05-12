@@ -37,7 +37,7 @@ QString Linea::output()const{
 
 
 Tag* Linea::operator+(const Tag& t)const{
-    if(dynamic_cast<const Punto*>(&(t))){
+    if(typeid(Punto)==typeid(t)){
     Spezzata* s=new Spezzata(getInizio(), static_cast<const Punto&>(t));
     s->aggiungiPunto(getFine());
     return s;
@@ -47,6 +47,9 @@ Tag* Linea::operator+(const Tag& t)const{
     s->aggiungiPunto(getFine());
     s->aggiungiPunto(static_cast<const Linea&>(t).getInizio());
     return s;
+    }
+    if(typeid(Spezzata)==typeid(t)){
+    return t+*this;
     }
 }
 
