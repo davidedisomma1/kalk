@@ -5,11 +5,12 @@
 #include <QLabel>
 #include<QPushButton>
 #include "Grafica/mainkalk.h"
+#include <Grafica/dialog.h>
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    MainKalk m;
+    Dialog m;
     m.show();
     return app.exec();
 }

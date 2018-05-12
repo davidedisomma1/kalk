@@ -1,5 +1,6 @@
 #include "dialog.h"
 #include "inputpunto.h"
+#include <typeinfo>
 
 Dialog::Dialog():modello(new listModel()){
     opGenerali(); //Creo la vista delle operazioni unarie
@@ -230,7 +231,7 @@ void Dialog::traslazione(){
         double nuovoX = QInputDialog::getDouble(this,tr("Inserisci x"),tr("Inserisci x"));
         double nuovoY = QInputDialog::getDouble(this,tr("Inserisci y"),tr("Inserisci y"));
         modello->ritornaElemento(posizione1[0].row())->traslazione(nuovoX,nuovoY);
-        modello->traslaComponenti(modello->ritornaElemento(posizione1[0].row()),modello->ritornaElemento(posizione1[0].row())->getTag(),nuovoX,nuovoY);
+        modello->traslaComponenti(modello->ritornaElemento(posizione1[0].row()),nuovoX,nuovoY);
         modello->aggiorna(posizione1[0]);
     }
 }

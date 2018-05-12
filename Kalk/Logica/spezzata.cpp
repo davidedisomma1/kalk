@@ -5,13 +5,11 @@ Spezzata::Spezzata(const Punto& inizio,const Punto& fine):Linea(inizio,fine),pun
    // setTag(inizio.getTag()+fine.getTag());
 }
 
-const Tag* Spezzata::trovaElemento(QString t)const{
-    if(getInizioTag()==t) return &getInizio();
+bool Spezzata::trovaPunto(QString s)const{
     for(auto cit=punti.constBegin();cit!=punti.constEnd();++cit){
-        if(cit->getTag()==t) return &(*cit);
+        if(cit->getTag()==s) return true;
     }
-    if(getFineTag()==t) return &getFine();
-    return 0;
+    return false;
 }
 
 Tag* Spezzata::operator+(const Tag& t) const{
@@ -31,11 +29,12 @@ Tag* Spezzata::operator+(const Tag& t) const{
     if(typeid(Spezzata)==typeid(t)){
         Spezzata* s=new Spezzata(*this);
         s->aggiungiPunto(getFine());
-        s->setFine(static_cast<const Linea&>(t).getFine());
+
         s->aggiungiPunto(static_cast<const Linea&>(t).getInizio());
-        for(auto cit=punti.constBegin();cit!=punti.constEnd();++cit){
+        for(auto cit=static_cast<const Spezzata&>(t).punti.constBegin();cit!=static_cast<const Spezzata&>(t).punti.constEnd();++cit){
             s->aggiungiPunto(*cit);
         }
+        s->setFine(static_cast<const Linea&>(t).getFine());
         return s;
     }
 }
