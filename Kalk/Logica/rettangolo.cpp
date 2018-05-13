@@ -6,6 +6,9 @@ Rettangolo::Rettangolo(const Punto& a,const Punto& b,const Punto& c,const Punto&
     Spezzata::aggiungiPunto(d);
 }
 
+Rettangolo::Rettangolo(const Punto & a):Spezzata(a,a){}
+
+
 
 Tag* Rettangolo::operator+(const Tag& t) const{
     return Spezzata::operator +(t);
@@ -15,20 +18,40 @@ QString Rettangolo::output()const{
     return Spezzata::output();
 }
 
-Spezzata* Rettangolo::simmetricoX(QString etichetta)const{
-    return Spezzata::simmetricoX(etichetta);
+Rettangolo* Rettangolo::simmetricoX(QString etichetta)const{
+    Spezzata* s=Spezzata::simmetricoX(etichetta);
+    Rettangolo* r=new Rettangolo(s->getInizio());
+    for(auto cit=s->punti.constBegin();cit!=s->punti.constEnd();++cit){
+        r->Spezzata::aggiungiPunto(*(cit));
+    }
+    return r;
+}
+Rettangolo* Rettangolo::simmetricoY(QString etichetta)const{
+    Spezzata* s=Spezzata::simmetricoY(etichetta);
+    Rettangolo* r=new Rettangolo(s->getInizio());
+    for(auto cit=s->punti.constBegin();cit!=s->punti.constEnd();++cit){
+        r->Spezzata::aggiungiPunto(*(cit));
+    }
+    return r;
 
 }
-Spezzata* Rettangolo::simmetricoY(QString etichetta)const{
-    return Spezzata::simmetricoY(etichetta);
+Rettangolo* Rettangolo::simmetricoO(QString etichetta)const{
+    Spezzata* s=Spezzata::simmetricoO(etichetta);
+    Rettangolo* r=new Rettangolo(s->getInizio());
+    for(auto cit=s->punti.constBegin();cit!=s->punti.constEnd();++cit){
+        r->Spezzata::aggiungiPunto(*(cit));
+    }
+    return r;
+}
 
-}
-Spezzata* Rettangolo::simmetricoO(QString etichetta)const{
-    return Spezzata::simmetricoO(etichetta);
-}
 void Rettangolo::traslazione(double nX,double nY){
     Spezzata::traslazione(nX,nY);
 }
+
 double Rettangolo::lunghezza()const{
     return Spezzata::lunghezza();
+}
+
+double Rettangolo::area()const{
+    return getInizio().distanzaP(punti.first()) * getInizio().distanzaP(punti.last());
 }

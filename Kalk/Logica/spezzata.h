@@ -4,6 +4,7 @@
 #include <QList>
 
 class Spezzata : public Linea{
+    friend class Rettangolo;
 private:
     QList<Punto> punti;
 public:

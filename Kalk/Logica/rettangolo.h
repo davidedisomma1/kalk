@@ -5,21 +5,23 @@
 class Rettangolo : public Spezzata
 {
 public:
-    Rettangolo(const Punto&,const Punto&,const Punto&,const Punto&);
+    Rettangolo(const Punto& ,const Punto& ,const Punto& ,const Punto& );
+    Rettangolo(const Punto& ,const Punto& );
+    Rettangolo(const Punto& );
     Rettangolo(const Rettangolo&)=default;
 
 
         Tag* operator+(const Tag&) const;
         void aggiungiPunto(const Punto&);
-        bool trovaPunto(QString );
 
         virtual QString output()const;
 
-        Spezzata* simmetricoX(QString)const;
-        Spezzata* simmetricoY(QString)const;
-        Spezzata* simmetricoO(QString)const;
+        Rettangolo* simmetricoX(QString)const;
+        Rettangolo* simmetricoY(QString)const;
+        Rettangolo* simmetricoO(QString)const;
         void traslazione(double,double);
         double lunghezza()const;
+        double area()const;
 
 };
 
