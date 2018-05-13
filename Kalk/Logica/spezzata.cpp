@@ -15,6 +15,7 @@ bool Spezzata::trovaPunto(QString s)const{
 Tag* Spezzata::operator+(const Tag& t) const{
     if(dynamic_cast<const Punto*>(&(t))){
         Spezzata* s=new Spezzata(*this);
+
         s->aggiungiPunto(s->getFine());
         s->setFine(static_cast<const Punto&>(t));
         return s;
@@ -22,6 +23,7 @@ Tag* Spezzata::operator+(const Tag& t) const{
     if(typeid(Linea)==typeid(t)){
         Spezzata* s=new Spezzata(*this);
         s->aggiungiPunto(getFine());
+
         s->aggiungiPunto(static_cast<const Linea&>(t).getInizio());
         s->setFine(static_cast<const Linea&>(t).getFine());
         return s;
@@ -29,7 +31,6 @@ Tag* Spezzata::operator+(const Tag& t) const{
     if(typeid(Spezzata)==typeid(t)){
         Spezzata* s=new Spezzata(*this);
         s->aggiungiPunto(getFine());
-
         s->aggiungiPunto(static_cast<const Linea&>(t).getInizio());
         for(auto cit=static_cast<const Spezzata&>(t).punti.constBegin();cit!=static_cast<const Spezzata&>(t).punti.constEnd();++cit){
             s->aggiungiPunto(*cit);

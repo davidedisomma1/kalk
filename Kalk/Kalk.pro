@@ -15,7 +15,6 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
     Logica/punto.cpp \
-    Grafica/mainwindow.cpp \
     Grafica/listmodel.cpp\
     Logica/tag.cpp \
     Logica/linea.cpp \
@@ -25,7 +24,6 @@ SOURCES += main.cpp\
     Logica/rettangolo.cpp
 
 HEADERS  += Logica/punto.h \
-    Grafica/mainwindow.h \
     Grafica/listmodel.h \
     Logica/tag.h \
     Logica/linea.h \
