@@ -15,7 +15,14 @@ Tag* Rettangolo::operator+(const Tag& t) const{
 }
 
 QString Rettangolo::output()const{
-    return Spezzata::output();
+    QString stringaTag,stringaCoord;
+    stringaCoord=stringaCoord+" ("+QString::number(getInizio().x())+","+
+            QString::number(getInizio().y())+"),";
+    for(auto cit=punti.constBegin();cit!=punti.constEnd();++cit){
+        stringaCoord=stringaCoord+"("+QString::number(cit->x())+","+
+                QString::number(cit->y())+"),";
+    }
+    return getTag()+stringaCoord.remove(stringaCoord.length()-1,1);
 }
 
 Rettangolo* Rettangolo::simmetricoX(QString etichetta)const{
@@ -45,7 +52,10 @@ Rettangolo* Rettangolo::simmetricoO(QString etichetta)const{
 }
 
 void Rettangolo::traslazione(double nX,double nY){
-    Spezzata::traslazione(nX,nY);
+    const_cast<Punto&>(getInizio()).traslazione(nX,nY);
+    for(auto it=punti.begin();it!=punti.end();++it){
+        it->traslazione(nX,nY);
+    }
 }
 
 double Rettangolo::lunghezza()const{
