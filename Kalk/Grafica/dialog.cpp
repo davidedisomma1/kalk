@@ -292,13 +292,17 @@ void Dialog::lunghezza(){
 void Dialog::addizione(){
     int posizione1=selezioneElementoUno->currentIndex();
     int posizione2=selezioneElementoDue->currentIndex();
-    if(typeid(*(modello->ritornaElemento(posizione1)))!=typeid(Rettangolo) && typeid(*(modello->ritornaElemento(posizione2)))!=typeid(Rettangolo))
-        modello->inserisciElemento(modello->rowCount(QModelIndex()), *(modello->ritornaElemento(posizione1))+ *(modello->ritornaElemento(posizione2)));
-    else{
-        QMessageBox msgBox;
-        msgBox.setText("Non e' possibile sommare rettangoli");
-        msgBox.exec();
-    }
+    QModelIndex indiceUno=selezioneElementoUno->rootModelIndex();
+    QModelIndex indiceDue=selezioneElementoDue->rootModelIndex();
+    if(indiceUno.isValid() && indiceDue.isValid()){
+        if(typeid(*(modello->ritornaElemento(posizione1)))!=typeid(Rettangolo) && typeid(*(modello->ritornaElemento(posizione2)))!=typeid(Rettangolo))
+            modello->inserisciElemento(modello->rowCount(QModelIndex()), *(modello->ritornaElemento(posizione1))+ *(modello->ritornaElemento(posizione2)));
+        else{
+            QMessageBox msgBox;
+            msgBox.setText("Non e' possibile sommare rettangoli");
+            msgBox.exec();
+        }
+    } else selezionaElemento();
 }
 
 void Dialog::distanzaP(){
