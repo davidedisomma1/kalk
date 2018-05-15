@@ -21,6 +21,7 @@ void Dialog::opGenerali(){
 
     buttonCreaPunto=new QPushButton("Crea punto",this);
     buttonCreaLinea=new QPushButton("Crea linea",this);
+    buttonCreaRettangolo=new QPushButton("Crea rettangolo",this);
     buttonElimina=new QPushButton("Elimina elemento",this);
     buttonModifyTag=new QPushButton("Modifica tag",this);
     buttonSimmetricoX=new QPushButton("Simmetrico X",this);
@@ -32,18 +33,20 @@ void Dialog::opGenerali(){
     layoutGen->addWidget(listaElementi,0,0,5,1);
     layoutGen->addWidget(buttonCreaPunto,0,1,1,1);
     layoutGen->addWidget(buttonCreaLinea,1,1,1,1);
-    layoutGen->addWidget(buttonElimina,2,1,1,1);
-    layoutGen->addWidget(buttonModifyTag,3,1,1,1);
+    layoutGen->addWidget(buttonCreaRettangolo,2,1,1,1);
+    layoutGen->addWidget(buttonElimina,3,1,1,1);
+    layoutGen->addWidget(buttonModifyTag,4,1,1,1);
     layoutGen->addWidget(buttonSimmetricoX,0,2,1,1);
     layoutGen->addWidget(buttonSimmetricoY,1,2,1,1);
     layoutGen->addWidget(buttonSimmetricoO,2,2,1,1);
     layoutGen->addWidget(buttonTraslazione,3,2,1,1);
-    layoutGen->addWidget(buttonLunghezza,4,1,1,2);
+    layoutGen->addWidget(buttonLunghezza,4,1,1,1);
 
     elementiGenerali->setLayout(layoutGen);
 
     QObject::connect(buttonCreaPunto,SIGNAL(released()),this,SLOT(creaPunto()));
     QObject::connect(buttonCreaLinea,SIGNAL(released()),this,SLOT(creaLinea()));
+    QObject::connect(buttonCreaRettangolo,SIGNAL(released()),this,SLOT(creaRettangolo()));
     QObject::connect(buttonElimina,SIGNAL(released()),this,SLOT(elimina()));
     QObject::connect(buttonModifyTag,SIGNAL(released()),this,SLOT(cambiaTag()));
     QObject::connect(buttonSimmetricoO,SIGNAL(released()),this,SLOT(simmetriaO()));
@@ -60,6 +63,8 @@ void Dialog::opGenerali(){
 //CREO E AGGIUNGO LA VISTA DELLE OPERAZIONI UNARIE SPECIFICHE PER SPEZZATE
     opSpezzateUnarie();
     layoutGen->addWidget(operazSpezzateUn,0,4,2,1);
+    opRettangoli();
+    layoutGen->addWidget(operazRettangoliUn,2,4,2,1);
 }
 
 void Dialog::opBinarie(){
@@ -149,13 +154,30 @@ void Dialog::opSpezzateUnarie(){
 
     operazSpezzateUn->setLayout(layoutS);
 }
-void Dialog::creaPunto(){
-    inputPunto *inputNuovoPunto=new inputPunto("Crea Punto",this);
+
+void Dialog::opRettangoli(){
+    operazRettangoliUn=new QGroupBox(tr("Operazioni per rettangoli"));
+    QVBoxLayout *layoutS=new QVBoxLayout;
+
+    buttonArea=new QPushButton("Area",this);
+    layoutS ->addWidget(buttonArea);
+
+    QObject::connect(buttonArea,SIGNAL(released()),this,SLOT(area()));
+
+    operazRettangoliUn->setLayout(layoutS);
+}
+
+Punto* Dialog::creaPunto(){
+    inputPunto *inputNuovoPunto=new inputPunto("Crea punto",this);
     if(inputNuovoPunto->exec()==QDialog::Accepted && !modello->trovaDuplicato(inputNuovoPunto->getInputTag())){
         Punto *nuovoPunto=new Punto(inputNuovoPunto->getInputTag(),inputNuovoPunto->getInputX(),inputNuovoPunto->getInputY());
         modello->inserisciElemento(modello->rowCount(QModelIndex()),nuovoPunto);
+        return nuovoPunto;
     }
-    delete inputNuovoPunto;
+    if(modello->trovaDuplicato(inputNuovoPunto->getInputTag())){
+        nomeEsistente();
+    }
+    return 0;
 }
 
 void Dialog::creaLinea(){
@@ -164,20 +186,22 @@ void Dialog::creaLinea(){
     if(inputPuntoInizio->exec()==QDialog::Accepted){
         Punto *nuovoPunto=new Punto(inputPuntoInizio->getInputTag(),inputPuntoInizio->getInputX(),inputPuntoInizio->getInputY());
         if(!modello->trovaDuplicato(inputPuntoInizio->getInputTag())) modello->inserisciElemento(modello->rowCount(QModelIndex()),nuovoPunto);
-        else return;
+        else {
+            nomeEsistente();
+            return;}
         nuovaLinea->setInizio(*nuovoPunto);
         nuovaLinea->setTag(nuovoPunto->getTag());
     }
-    delete inputPuntoInizio;
     inputPunto *inputPuntoFine=new inputPunto("Crea Punto Fine",this);
     if(inputPuntoFine->exec()==QDialog::Accepted){
         Punto *nuovoPunto=new Punto(inputPuntoFine->getInputTag(),inputPuntoFine->getInputX(),inputPuntoFine->getInputY());
         if(!modello->trovaDuplicato(inputPuntoFine->getInputTag())) modello->inserisciElemento(modello->rowCount(QModelIndex()),nuovoPunto);
-        else return;
+        else {
+            nomeEsistente();
+            return;}
         nuovaLinea->setFine(*nuovoPunto);
         nuovaLinea->setTag(nuovaLinea->getTag()+nuovoPunto->getTag());
     }
-    delete inputPuntoFine;
     if(!modello->trovaDuplicato(nuovaLinea->getTag())) modello->inserisciElemento(modello->rowCount(QModelIndex()),nuovaLinea);
 }
 
@@ -185,6 +209,9 @@ void Dialog::elimina(){
     QModelIndexList posizione1=listaElementi->selectionModel()->selectedIndexes();
     if(!posizione1.isEmpty())
     modello->removeRows(posizione1[0].row(),1);
+    else{
+        selezionaElemento();
+    }
 }
 
 void Dialog::cambiaTag(){
@@ -195,6 +222,12 @@ void Dialog::cambiaTag(){
             modello->ritornaElemento(posizione1[0].row())->setTag(text);
             modello->aggiorna(posizione1[0]);
         }
+        else{
+            nomeEsistente();
+        }
+    }
+    else{
+        selezionaElemento();
     }
 }
 
@@ -204,7 +237,9 @@ void Dialog::simmetriaO(){
         QString text = QInputDialog::getText(this,tr("Inserisci tag"),tr("Inserisci tag"));
         if(!modello->trovaDuplicato(text))
         modello->inserisciElemento(modello->rowCount(QModelIndex()),modello->ritornaElemento(posizione1[0].row())->simmetricoO(text));
+        else nomeEsistente();
     }
+    else selezionaElemento();
 }
 
 void Dialog::simmetriaX(){
@@ -212,8 +247,10 @@ void Dialog::simmetriaX(){
     if(!posizione1.isEmpty()){
         QString text = QInputDialog::getText(this,tr("Inserisci tag"),tr("Inserisci tag"));
         if(!modello->trovaDuplicato(text))
-        modello->inserisciElemento(modello->rowCount(QModelIndex()),modello->ritornaElemento(posizione1[0].row())->simmetricoX(text));
+        modello->inserisciElemento(modello->rowCount(QModelIndex()),modello->ritornaElemento(posizione1[0].row())->simmetricoX(text));\
+        else nomeEsistente();
     }
+    else selezionaElemento();
 }
 
 void Dialog::simmetriaY(){
@@ -222,7 +259,9 @@ void Dialog::simmetriaY(){
         QString text = QInputDialog::getText(this,tr("Inserisci tag"),tr("Inserisci tag"));
         if(!modello->trovaDuplicato(text))
         modello->inserisciElemento(modello->rowCount(QModelIndex()),modello->ritornaElemento(posizione1[0].row())->simmetricoY(text));
+        else nomeEsistente();
     }
+    else selezionaElemento();
 }
 
 void Dialog::traslazione(){
@@ -234,22 +273,32 @@ void Dialog::traslazione(){
         modello->traslaComponenti(modello->ritornaElemento(posizione1[0].row()),nuovoX,nuovoY);
         modello->aggiorna(posizione1[0]);
     }
+    else selezionaElemento();
 }
 
 void Dialog::lunghezza(){
     QModelIndexList posizione1=listaElementi->selectionModel()->selectedIndexes();
     QMessageBox msgBox;
-    if(dynamic_cast<Linea*>(modello->ritornaElemento(posizione1[0].row())))
-        msgBox.setText(QString::number(static_cast<Linea*>(modello->ritornaElemento(posizione1[0].row()))->lunghezza()));
-    else
-        msgBox.setText("0");
-    msgBox.exec();
+    if(!posizione1.isEmpty()){
+        if(dynamic_cast<Linea*>(modello->ritornaElemento(posizione1[0].row())))
+            msgBox.setText(QString::number(static_cast<Linea*>(modello->ritornaElemento(posizione1[0].row()))->lunghezza()));
+        else
+            msgBox.setText("0");
+        msgBox.exec();
+    }
+    else selezionaElemento();
 }
 
 void Dialog::addizione(){
     int posizione1=selezioneElementoUno->currentIndex();
     int posizione2=selezioneElementoDue->currentIndex();
-    modello->inserisciElemento(modello->rowCount(QModelIndex()), *(modello->ritornaElemento(posizione1))+ *(modello->ritornaElemento(posizione2)));
+    if(typeid(*(modello->ritornaElemento(posizione1)))!=typeid(Rettangolo) && typeid(*(modello->ritornaElemento(posizione2)))!=typeid(Rettangolo))
+        modello->inserisciElemento(modello->rowCount(QModelIndex()), *(modello->ritornaElemento(posizione1))+ *(modello->ritornaElemento(posizione2)));
+    else{
+        QMessageBox msgBox;
+        msgBox.setText("Non e' possibile sommare rettangoli");
+        msgBox.exec();
+    }
 }
 
 void Dialog::distanzaP(){
@@ -261,6 +310,11 @@ void Dialog::distanzaP(){
                        ->distanzaP(*static_cast<Punto*>(modello->ritornaElemento(posizione2)))));
         msgBox.exec();
     }
+    else {
+        QMessageBox msgBox;
+        msgBox.setText("Seleziona due punti");
+        msgBox.exec();
+    }
 }
 
 void Dialog::distanzaO(){
@@ -270,14 +324,25 @@ void Dialog::distanzaO(){
         msgBox.setText(QString::number(static_cast<Punto*>(modello->ritornaElemento(posizione1[0].row()))->distanzaO()));
         msgBox.exec();
     }
+    else{
+        QMessageBox msgBox;
+        msgBox.setText("Seleziona un punto dalla lista");
+        msgBox.exec();
+    }
 }
 
 void Dialog::puntoMedio(){
      QModelIndexList posizione1=listaElementi->selectionModel()->selectedIndexes();
      if(typeid(*(modello->ritornaElemento(posizione1[0].row())))==typeid(Linea)){
-     QString text = QInputDialog::getText(this,tr("Inserisci tag"),tr("Inserisci tag"));
-     if(!modello->trovaDuplicato(text))
-     modello->inserisciElemento(modello->rowCount(QModelIndex()),static_cast<Linea*>(modello->ritornaElemento(posizione1[0].row()))->puntoMedio(text));
+        QString text = QInputDialog::getText(this,tr("Inserisci tag"),tr("Inserisci tag"));
+        if(!modello->trovaDuplicato(text))
+            modello->inserisciElemento(modello->rowCount(QModelIndex()),static_cast<Linea*>(modello->ritornaElemento(posizione1[0].row()))->puntoMedio(text));
+        else nomeEsistente();
+     }
+     else{
+         QMessageBox msgBox;
+         msgBox.setText("Seleziona una linea dalla lista");
+         msgBox.exec();
      }
 }
 
@@ -285,12 +350,18 @@ void Dialog::puntoMedio(){
 void Dialog::sommaVettoriale(){
     int posizione1=selezioneElementoUno->currentIndex();
     int posizione2=selezioneElementoDue->currentIndex();
-    if(typeid(Linea)==typeid(*(modello->ritornaElemento(posizione1))) &&
+    if(posizione1!=posizione2 && typeid(Linea)==typeid(*(modello->ritornaElemento(posizione1))) &&
            typeid(Linea)==typeid(*(modello->ritornaElemento(posizione2)))){
-    modello->inserisciElemento(modello->rowCount(QModelIndex()),static_cast<Linea*>(modello->ritornaElemento(posizione1))
+        modello->inserisciElemento(modello->rowCount(QModelIndex()),static_cast<Linea*>(modello->ritornaElemento(posizione1))
            ->sommaVettoriale((*static_cast<Linea*>((modello->ritornaElemento(posizione2))))));
     }
+    else{
+        QMessageBox msgBox;
+        msgBox.setText("Seleziona due linee diverse");
+        msgBox.exec();
+    }
 }
+
 
 void Dialog::connettiSpezzata(){
     QModelIndexList posizione1=listaElementi->selectionModel()->selectedIndexes();
@@ -298,5 +369,62 @@ void Dialog::connettiSpezzata(){
         QString text = QInputDialog::getText(this,tr("Inserisci tag"),tr("Inserisci tag"));
         if(!modello->trovaDuplicato(text))
         modello->inserisciElemento(modello->rowCount(QModelIndex()),static_cast<Spezzata*>(modello->ritornaElemento(posizione1[0].row()))->chiudiSpezzata(text));
+        else nomeEsistente();
     }
+    else{
+        QMessageBox msgBox;
+        msgBox.setText("Seleziona una spezzata");
+        msgBox.exec();
+    }
+}
+
+void Dialog::area(){
+    QModelIndexList posizione1=listaElementi->selectionModel()->selectedIndexes();
+    if(!posizione1.isEmpty()){
+        if(typeid(*(modello->ritornaElemento(posizione1[0].row())))==typeid(Rettangolo)){
+            QMessageBox msgBox;
+            msgBox.setText(QString::number(static_cast<Rettangolo*>(modello->ritornaElemento(posizione1[0].row()))->area()));
+            msgBox.exec();
+        }
+        else{
+            QMessageBox msgBox;
+            msgBox.setText("Seleziona un rettangolo");
+            msgBox.exec();
+        }
+    }
+    else selezionaElemento();
+
+}
+
+void Dialog::creaRettangolo(){
+    Punto* a=0,*b=0,*c=0,*d=0;
+    a=creaPunto();
+    if(a)
+    b=creaPunto();
+    if(b)
+    c=creaPunto();
+    if(c)
+    d=creaPunto();
+    if(d){
+        if(a->distanzaP(*b)==d->distanzaP(*c) && a->distanzaP(*d)==b->distanzaP(*c)){
+            Rettangolo* nuovoRettangolo=new Rettangolo(*a,*b,*c,*d);
+            modello->inserisciElemento(modello->rowCount(QModelIndex()),nuovoRettangolo);
+        }
+        else{
+            QMessageBox msgBox;
+            msgBox.setText("Inserire un rettangolo regolare in senso antiorario");
+            msgBox.exec();
+        }
+    }
+}
+
+void Dialog::selezionaElemento(){
+    QMessageBox msgBox;
+    msgBox.setText("Seleziona un elemento dalla lista");
+    msgBox.exec();
+}
+void Dialog::nomeEsistente(){
+    QMessageBox msgBox;
+    msgBox.setText("Nome gia' esistente");
+    msgBox.exec();
 }

@@ -76,7 +76,7 @@ void listModel::traslaComponenti(Tag* o,double nX,double nY){
             (const_cast<Tag*>(*it))->traslazione(nX,nY);
         }
     }
-    if(dynamic_cast<Spezzata*>(o)){
+    if(typeid(*o)==typeid(Spezzata)){
     for(auto it=listaElementi.constBegin();it!=listaElementi.constEnd();++it){
         QString s=(*it)->getTag();
         if(s==(static_cast<Linea*>(o)->getFineTag()))
@@ -87,6 +87,16 @@ void listModel::traslaComponenti(Tag* o,double nX,double nY){
             (const_cast<Tag*>(*it))->traslazione(nX,nY);
             }
         }
-
     }
+    if(typeid(*o)==typeid(Rettangolo)){
+    for(auto it=listaElementi.constBegin();it!=listaElementi.constEnd();++it){
+        QString s=(*it)->getTag();
+        if(s==(static_cast<Linea*>(o)->getInizioTag()))
+            (const_cast<Tag*>(*it))->traslazione(nX,nY);
+        if(static_cast<Spezzata*>(o)->trovaPunto(s)){
+            (const_cast<Tag*>(*it))->traslazione(nX,nY);
+            }
+        }
+    }
+
 }

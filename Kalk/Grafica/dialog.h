@@ -13,6 +13,7 @@
 #include <QComboBox>
 #include <QLabel>
 #include <QMessageBox>
+#include "../Logica/rettangolo.h"
 
 class Dialog:public QDialog{
     Q_OBJECT
@@ -28,7 +29,7 @@ private:
     void opLineeBinarie();
     void opSpezzateUnarie();
     void opSpezzateBinarie();
-  //  void opRettangoli();
+    void opRettangoli();
 
 /*Questi elementi creano i gruppi di operazioni*/
     QGroupBox* elementiGenerali;
@@ -39,7 +40,7 @@ private:
     QGroupBox* operazLineeBin;
     QGroupBox* operazSpezzateUn;
     //QGroupBox* operazSpezzateBin;
-    //QGroupBox* operazRettangoliUn;
+    QGroupBox* operazRettangoliUn;
     //QGroupBox* operazRettangoliBin;
 
     QListView* listaElementi;
@@ -49,6 +50,7 @@ private:
     //Bottoni generici
     QPushButton* buttonCreaPunto;
     QPushButton* buttonCreaLinea;
+    QPushButton* buttonCreaRettangolo;
     QPushButton* buttonElimina;
     QPushButton* buttonModifyTag;
     QPushButton* buttonSimmetricoX;
@@ -62,6 +64,8 @@ private:
     QPushButton* buttonPuntoMedio;
     //Bottoni per spezzate
     QPushButton* buttonConnetti;
+    //Bottoni per rettangoli
+    QPushButton* buttonArea;
 
 /*Selezione di due elementi e bottoni BINARI*/
     QComboBox* selezioneElementoUno;
@@ -75,8 +79,9 @@ private:
     QPushButton* buttonSommaVettoriale;
 
 public slots:
-    void creaPunto();
+    Punto* creaPunto();
     void creaLinea();
+    void creaRettangolo();
     void elimina();
     void cambiaTag();
     void simmetriaX();
@@ -90,6 +95,9 @@ public slots:
     void puntoMedio();
     void sommaVettoriale();
     void connettiSpezzata();
+    void area();
+    void nomeEsistente();
+    void selezionaElemento();
 signals:
 };
 

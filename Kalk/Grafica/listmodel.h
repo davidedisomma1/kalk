@@ -4,6 +4,7 @@
 #include "Logica/punto.h"
 #include "Logica/linea.h"
 #include "Logica/spezzata.h"
+#include "Logica/rettangolo.h"
 #include <QAbstractListModel>
 #include <QList>
 
