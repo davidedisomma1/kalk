@@ -1,0 +1,14 @@
+INPUT(
+./debug\main.o
+./debug\punto.o
+./debug\listmodel.o
+./debug\tag.o
+./debug\linea.o
+./debug\inputpunto.o
+./debug\spezzata.o
+./debug\dialog.o
+./debug\rettangolo.o
+./debug\moc_listmodel.o
+./debug\moc_inputpunto.o
+./debug\moc_dialog.o
+);

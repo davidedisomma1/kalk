@@ -1,0 +1,14 @@
+INPUT(
+./release\main.o
+./release\punto.o
+./release\listmodel.o
+./release\tag.o
+./release\linea.o
+./release\inputpunto.o
+./release\spezzata.o
+./release\dialog.o
+./release\rettangolo.o
+./release\moc_listmodel.o
+./release\moc_inputpunto.o
+./release\moc_dialog.o
+);
