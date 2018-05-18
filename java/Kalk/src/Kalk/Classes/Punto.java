@@ -20,23 +20,22 @@ public class Punto extends Tag {
 	}
 	
 	@Override
-	public Tag plus(Tag t) {
-		// TODO Auto-generated method stub
-		return null;
+	public Linea plus(Tag t) {
+		return new Linea(getTag()+t.getTag(),this,(Punto)t);
 	}
 
 	@Override
-	public Tag simmetricoX(String s) {
+	public Punto simmetricoX(String s) {
 	    return new Punto(s,x(),-y());
 	}
 
 	@Override
-	public Tag simmetricoY(String s) {
+	public Punto simmetricoY(String s) {
 		return new Punto(s,-x(),y());
 	}
 
 	@Override
-	public Tag simmetricoO(String s) {
+	public Punto simmetricoO(String s) {
 		return new Punto(s,-x(),-y());
 	}
 
