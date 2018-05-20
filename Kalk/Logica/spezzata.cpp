@@ -41,17 +41,7 @@ Tag* Spezzata::operator+(const Tag& t) const{
 }
 
 QString Spezzata::output()const{  
-    QString vecchioTag,stringaTag,stringaCoord;
-   /* vecchioTag=getTag();
-    int lunghezza1=getInizioTag().length();
-    int lunghezza2=getFineTag().length();
-    if((vecchioTag.left(lunghezza1)==getInizioTag())&&(vecchioTag.right(lunghezza2)==getFineTag())){
-         stringaTag=getInizioTag();
-         for(auto cit=punti.constBegin();cit!=punti.constEnd();++cit){
-             stringaTag=stringaTag+cit->getTag();
-         stringaTag=getFineTag();
-         setTag(stringaTag);
-    }*/
+    QString stringaTag,stringaCoord;
 
     stringaCoord=stringaCoord+" ("+QString::number(getInizio().x())+","+
             QString::number(getInizio().y())+"),";
@@ -106,24 +96,7 @@ double Spezzata::lunghezza()const{
 }
 
 void Spezzata::aggiungiPunto(const Punto& p){
-    QString vecchioTag,stringaTag;
-    int lunghezza1,lunghezza2;
-    lunghezza1=getInizioTag().length();
-    lunghezza2=getFineTag().length();
-
-    if(punti.empty())
-        vecchioTag=getInizioTag()+getFineTag();
-    else
-        vecchioTag=getTag();
-
     punti.push_back(p);
-    if((vecchioTag.left(lunghezza1)==getInizioTag())&&(vecchioTag.right(lunghezza2)==getFineTag())){
-         stringaTag=stringaTag+getInizioTag();
-         for(auto cit=punti.constBegin();cit!=punti.constEnd();++cit)
-             stringaTag=stringaTag+cit->getTag();
-         stringaTag+=getFineTag();
-         setTag(stringaTag);
-    }
 }
 
 Spezzata* Spezzata::chiudiSpezzata(QString etichetta) const{
