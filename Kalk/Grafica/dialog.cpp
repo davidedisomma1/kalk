@@ -292,9 +292,7 @@ void Dialog::lunghezza(){
 void Dialog::addizione(){
     int posizione1=selezioneElementoUno->currentIndex();
     int posizione2=selezioneElementoDue->currentIndex();
-    QModelIndex indiceUno=selezioneElementoUno->rootModelIndex();
-    QModelIndex indiceDue=selezioneElementoDue->rootModelIndex();
-    if(indiceUno.isValid() && indiceDue.isValid()){
+    if(posizione1!=-1 && posizione2!=-1){
         if(typeid(*(modello->ritornaElemento(posizione1)))!=typeid(Rettangolo) && typeid(*(modello->ritornaElemento(posizione2)))!=typeid(Rettangolo))
             modello->inserisciElemento(modello->rowCount(QModelIndex()), *(modello->ritornaElemento(posizione1))+ *(modello->ritornaElemento(posizione2)));
         else{
@@ -323,7 +321,7 @@ void Dialog::distanzaP(){
 
 void Dialog::distanzaO(){
     QModelIndexList posizione1=listaElementi->selectionModel()->selectedIndexes();
-    if(dynamic_cast<Punto*>(modello->ritornaElemento(posizione1[0].row()))){
+    if(!posizione1.isEmpty() && dynamic_cast<Punto*>(modello->ritornaElemento(posizione1[0].row()))){
         QMessageBox msgBox;
         msgBox.setText(QString::number(static_cast<Punto*>(modello->ritornaElemento(posizione1[0].row()))->distanzaO()));
         msgBox.exec();
@@ -337,7 +335,7 @@ void Dialog::distanzaO(){
 
 void Dialog::puntoMedio(){
      QModelIndexList posizione1=listaElementi->selectionModel()->selectedIndexes();
-     if(typeid(*(modello->ritornaElemento(posizione1[0].row())))==typeid(Linea)){
+     if(!posizione1.isEmpty() && typeid(*(modello->ritornaElemento(posizione1[0].row())))==typeid(Linea)){
         QString text = QInputDialog::getText(this,tr("Inserisci tag"),tr("Inserisci tag"));
         if(!modello->trovaDuplicato(text))
             modello->inserisciElemento(modello->rowCount(QModelIndex()),static_cast<Linea*>(modello->ritornaElemento(posizione1[0].row()))->puntoMedio(text));
@@ -369,7 +367,7 @@ void Dialog::sommaVettoriale(){
 
 void Dialog::connettiSpezzata(){
     QModelIndexList posizione1=listaElementi->selectionModel()->selectedIndexes();
-    if(typeid(*(modello->ritornaElemento(posizione1[0].row())))==typeid(Spezzata)){
+    if(!posizione1.isEmpty() && typeid(*(modello->ritornaElemento(posizione1[0].row())))==typeid(Spezzata)){
         QString text = QInputDialog::getText(this,tr("Inserisci tag"),tr("Inserisci tag"));
         if(!modello->trovaDuplicato(text))
         modello->inserisciElemento(modello->rowCount(QModelIndex()),static_cast<Spezzata*>(modello->ritornaElemento(posizione1[0].row()))->chiudiSpezzata(text));
