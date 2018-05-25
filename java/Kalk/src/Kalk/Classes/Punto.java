@@ -1,4 +1,5 @@
 package Kalk.Classes;
+import java.lang.Math;
 
 public class Punto extends Tag {
 	
@@ -8,6 +9,16 @@ public class Punto extends Tag {
 	public Punto(String s,double x,double y) {
 		super(s);
 		X=x;
+		Y=y;
+	}
+	
+
+	
+	public void setX(double x) {
+		X=x;
+	}
+	
+	public void setY(double y) {
 		Y=y;
 	}
 	
@@ -21,7 +32,9 @@ public class Punto extends Tag {
 	
 	@Override
 	public Linea plus(Tag t) {
+		if(t instanceof Punto)
 		return new Linea(getTag()+t.getTag(),this,(Punto)t);
+		return null;
 	}
 
 	@Override
@@ -46,8 +59,14 @@ public class Punto extends Tag {
 	}
 	
 	public String toString() {
-	    String stringaOut="";
-	    return stringaOut+getTag()+"("+x()+","+y()+")";
+	    return getTag()+"("+x()+","+y()+")";
 	}
-
+	
+	public double distanzaO(){
+	    return (Math.sqrt(Math.pow(x(),2)+Math.pow(y(),2)));
+	}
+	
+	public double distanzaP(Punto p){
+	    return (Math.sqrt(Math.pow(x()-p.x(),2)+Math.pow(y()-p.y(),2)));
+	}
 }

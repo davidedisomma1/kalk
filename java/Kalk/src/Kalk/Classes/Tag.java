@@ -13,6 +13,9 @@ public abstract class Tag {
     public Tag(String s) {
     	tag=s;
     }
+    
+
+    
     public void setTag(String s) {
     	tag=s;
     }
