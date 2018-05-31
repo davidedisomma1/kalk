@@ -102,7 +102,7 @@ void Spezzata::aggiungiPunto(const Punto& p){
 Spezzata* Spezzata::chiudiSpezzata(QString etichetta) const{
     Spezzata* s=new Spezzata(getInizio(),getInizio());
     for(auto cit=punti.constBegin();cit!=punti.constEnd();++cit){
-        s->aggiungiPunto(*(cit->simmetricoO("")));
+        s->aggiungiPunto(*(cit));
     }
     s->aggiungiPunto(getFine());
     s->setTag(etichetta);
