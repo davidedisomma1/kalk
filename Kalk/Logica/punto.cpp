@@ -41,6 +41,10 @@ bool Punto::operator==(const Punto& b)const{
     return ((x()==b.x())&&(y()==b.y()));
 }
 
+bool Punto::operator !=(const Punto& b)const{
+    return(x()!=b.x()||y()!=b.y());
+}
+
 std::ostream& operator<<(std::ostream& stream,const Punto& p){
     stream<<p.getTag().toStdString()<<'('<<p.x()<<","<<p.y()<<')';
     return stream;
