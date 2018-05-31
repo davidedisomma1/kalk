@@ -24,6 +24,7 @@ public:
 
     Tag* operator+(const Tag&) const;
     bool operator==(const Punto&)const;
+    bool operator!=(const Punto&)const;
     QString output()const;
 
     Punto* simmetricoX(QString)const;
