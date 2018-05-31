@@ -76,9 +76,14 @@ public class Linea extends Tag {
 	}
 	
 	public Linea sommaVettoriale(Linea l){
+		Linea v=new Linea(l.getTag(),l.getInizio(),l.getFine());
+	    if(getFine().x()!=v.getInizio().x() || getFine().y()!=v.getInizio().y())
+	        v.traslazione(getFine().x()-v.getInizio().x(),getFine().y()-v.getInizio().y());
+	    return new Linea(getInizio().getTag()+v.getFine().getTag(),getInizio(),v.getFine());
+	    /*
 	    Linea vettoreUno=new Linea(getTag(),inizio,fine);
 	    vettoreUno.traslazione(l.getFine().x()-vettoreUno.getInizio().x(),l.getFine().y()-vettoreUno.getInizio().y());
-	    return new Linea("",l.getInizio(),vettoreUno.getFine());
+	    return new Linea("",l.getInizio(),vettoreUno.getFine()); */
 	}
 
 }

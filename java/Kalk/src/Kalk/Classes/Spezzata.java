@@ -95,4 +95,11 @@ public class Spezzata extends Linea {
 	        return somma;
 	    }
 	}
+	
+	public Spezzata chiudiSpezzata(String s) {
+	    Spezzata sp=new Spezzata(s,getInizio(),getInizio());
+	    punti.forEach((Punto)->{sp.aggiungi(Punto);});
+	    sp.aggiungi(getFine());
+	    return sp;
+	}
 }
