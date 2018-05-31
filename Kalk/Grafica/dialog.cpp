@@ -368,10 +368,18 @@ void Dialog::sommaVettoriale(){
 void Dialog::connettiSpezzata(){
     QModelIndexList posizione1=listaElementi->selectionModel()->selectedIndexes();
     if(!posizione1.isEmpty() && typeid(*(modello->ritornaElemento(posizione1[0].row())))==typeid(Spezzata)){
-        QString text = QInputDialog::getText(this,tr("Inserisci tag"),tr("Inserisci tag"));
-        if(!modello->trovaDuplicato(text))
-        modello->inserisciElemento(modello->rowCount(QModelIndex()),static_cast<Spezzata*>(modello->ritornaElemento(posizione1[0].row()))->chiudiSpezzata(text));
-        else nomeEsistente();
+        if(static_cast<Spezzata*>(modello->ritornaElemento(posizione1[0].row()))->getInizio()!=
+                static_cast<Spezzata*>(modello->ritornaElemento(posizione1[0].row()))->getFine()){
+            QString text = QInputDialog::getText(this,tr("Inserisci tag"),tr("Inserisci tag"));
+            if(!modello->trovaDuplicato(text))
+                modello->inserisciElemento(modello->rowCount(QModelIndex()),static_cast<Spezzata*>(modello->ritornaElemento(posizione1[0].row()))->chiudiSpezzata(text));
+            else nomeEsistente();
+        }
+        else{
+            QMessageBox msgBox;
+            msgBox.setText("La linea è già chiusa");
+            msgBox.exec();
+        }
     }
     else{
         QMessageBox msgBox;
