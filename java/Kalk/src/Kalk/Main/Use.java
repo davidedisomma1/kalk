@@ -41,7 +41,7 @@ public class Use {
 		System.out.println("Punto medio linea prova: "+l1.puntoMedio("pM").toString());
 		System.out.println("lx+p4 "+lX.plus(p4));
 		System.out.println("lx+ly "+lX.plus(lY));
-//		System.out.println("Somma vettoriale tra l1 e LsimmX: "+l1.sommaVettoriale(lX));
+		System.out.println("Somma vettoriale tra l1 e LsimmX: "+l1.sommaVettoriale(lX));
 
 
 		s1=s1.plus(p0);
@@ -58,6 +58,7 @@ public class Use {
 		System.out.println("s1+p4 "+s1.plus(p4));
 		System.out.println("s1+lX "+s1.plus(lX));
 		System.out.println("s1+sX "+s1.plus(sX));
+		System.out.println("Chiusura SsimmO: "+sO.chiudiSpezzata("SsimmO Chiusa"));
 		
 		Rettangolo r1=new Rettangolo("r1",new Punto("pr1",0,0),new Punto("pr2",4,0),new Punto("pr3",4,3),new Punto("pr4",0,3));
 		Rettangolo rX=r1.simmetricoX("RsimmX");
