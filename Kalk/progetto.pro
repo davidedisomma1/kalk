@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     Grafica/inputpunto.cpp \
     Logica/spezzata.cpp \
     Grafica/dialog.cpp \
-    Logica/rettangolo.cpp
+    Logica/rettangolo.cpp \
+    Grafica/inputlinea.cpp
 
 HEADERS  += Logica/punto.h \
     Grafica/listmodel.h \
@@ -30,6 +31,7 @@ HEADERS  += Logica/punto.h \
     Grafica/inputpunto.h \
     Logica/spezzata.h \
     Grafica/dialog.h \
-    Logica/rettangolo.h
+    Logica/rettangolo.h \
+    Grafica/inputlinea.h
 
 FORMS    += Grafica/mainwindow.ui
