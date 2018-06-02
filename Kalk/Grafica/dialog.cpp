@@ -183,7 +183,7 @@ Punto* Dialog::creaPunto(){
 
 void Dialog::creaLinea(){
     Linea* nuovaLinea=new Linea();
-    inputLinea *inputNewLinea=new inputLinea("Linea",this);
+    inputLinea *inputNewLinea=new inputLinea("Crea linea",this);
     if(inputNewLinea->exec()==QDialog::Accepted){
         Punto *puntoInizio=new Punto(inputNewLinea->getInputTagInizio(),inputNewLinea->getInputXa(),inputNewLinea->getInputYa());
         Punto *puntoFine=new Punto(inputNewLinea->getInputTagFine(),inputNewLinea->getInputXb(),inputNewLinea->getInputYb());
