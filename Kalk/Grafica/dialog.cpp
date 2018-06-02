@@ -1,5 +1,6 @@
 #include "dialog.h"
-#include "inputpunto.h"
+#include "inputlinea.h"
+
 #include <typeinfo>
 
 Dialog::Dialog():modello(new listModel()){
@@ -40,7 +41,7 @@ void Dialog::opGenerali(){
     layoutGen->addWidget(buttonSimmetricoY,1,2,1,1);
     layoutGen->addWidget(buttonSimmetricoO,2,2,1,1);
     layoutGen->addWidget(buttonTraslazione,3,2,1,1);
-    layoutGen->addWidget(buttonLunghezza,4,1,1,1);
+    layoutGen->addWidget(buttonLunghezza,4,2,1,1);
 
     elementiGenerali->setLayout(layoutGen);
 
@@ -182,27 +183,30 @@ Punto* Dialog::creaPunto(){
 
 void Dialog::creaLinea(){
     Linea* nuovaLinea=new Linea();
-    inputPunto *inputPuntoInizio=new inputPunto("Crea Punto Inizio",this);
-    if(inputPuntoInizio->exec()==QDialog::Accepted){
-        Punto *nuovoPunto=new Punto(inputPuntoInizio->getInputTag(),inputPuntoInizio->getInputX(),inputPuntoInizio->getInputY());
-        if(!modello->trovaDuplicato(inputPuntoInizio->getInputTag())) modello->inserisciElemento(modello->rowCount(QModelIndex()),nuovoPunto);
+    inputLinea *inputNewLinea=new inputLinea("Linea",this);
+    if(inputNewLinea->exec()==QDialog::Accepted){
+        Punto *puntoInizio=new Punto(inputNewLinea->getInputTagInizio(),inputNewLinea->getInputXa(),inputNewLinea->getInputYa());
+        Punto *puntoFine=new Punto(inputNewLinea->getInputTagFine(),inputNewLinea->getInputXb(),inputNewLinea->getInputYb());
+        if(!modello->trovaDuplicato(inputNewLinea->getInputTagInizio()) && !modello->trovaDuplicato(inputNewLinea->getInputTagFine())){
+            modello->inserisciElemento(modello->rowCount(QModelIndex()),puntoInizio);
+            modello->inserisciElemento(modello->rowCount(QModelIndex()),puntoFine);
+        }
         else {
             nomeEsistente();
-            return;}
-        nuovaLinea->setInizio(*nuovoPunto);
-        nuovaLinea->setTag(nuovoPunto->getTag());
-    }
-    inputPunto *inputPuntoFine=new inputPunto("Crea Punto Fine",this);
-    if(inputPuntoFine->exec()==QDialog::Accepted){
-        Punto *nuovoPunto=new Punto(inputPuntoFine->getInputTag(),inputPuntoFine->getInputX(),inputPuntoFine->getInputY());
-        if(!modello->trovaDuplicato(inputPuntoFine->getInputTag())) modello->inserisciElemento(modello->rowCount(QModelIndex()),nuovoPunto);
-        else {
-            nomeEsistente();
-            return;}
-        nuovaLinea->setFine(*nuovoPunto);
-        nuovaLinea->setTag(nuovaLinea->getTag()+nuovoPunto->getTag());
+            delete puntoInizio;
+            delete puntoFine;
+            delete nuovaLinea;
+            return;
+        }
+        nuovaLinea->setInizio(*puntoInizio);
+        nuovaLinea->setFine(*puntoFine);
+        nuovaLinea->setTag(nuovaLinea->getInizioTag()+nuovaLinea->getFineTag());
     }
     if(!modello->trovaDuplicato(nuovaLinea->getTag())) modello->inserisciElemento(modello->rowCount(QModelIndex()),nuovaLinea);
+    else {
+        nomeEsistente();
+        delete nuovaLinea;
+    }
 }
 
 void Dialog::elimina(){
